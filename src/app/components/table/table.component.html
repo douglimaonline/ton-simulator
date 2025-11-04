@@ -1,0 +1,27 @@
+<table class="table-bordered w-100 mt-2">
+  <thead>
+    <tr class="table-active bg-secondary">
+      <th scope="col rounded-4">
+        Tarifa por tipo de <br />
+        transação
+      </th>
+      <th scope="col">VISA | MASTER</th>
+      <th scope="col">Valor a Receber</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let interest of feeTable.interests">
+      <td>
+        {{
+          interest.index == 0
+            ? "Débito"
+            : interest.index == 1
+            ? "Crédito à Vista"
+            : "Parcelado em " + interest.index + "x"
+        }}
+      </td>
+      <td>{{ interest.rate }}%</td>
+      <td>R${{ interest.result }}</td>
+    </tr>
+  </tbody>
+</table>

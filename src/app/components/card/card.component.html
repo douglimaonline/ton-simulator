@@ -1,0 +1,31 @@
+<div class="card text-center" style="width: 35rem">
+  <div class="card-body">
+    <h3 class="card-title">ASSUMINDO AS TAXAS</h3>
+    <app-dropdown></app-dropdown>
+    <div class="container text-center mt-2">
+      <div class="row border">
+        <div class="col col-8">
+          <h5 class="mt-2">Valor da Simulação</h5>
+        </div>
+        <div class="col border-start p-0">
+          <input
+            type="number"
+            inputmode="decimal"
+            [(ngModel)]="baseValue"
+            (input)="onInputChange($event)"
+            class="m-0 w-100 h-100 p-2"
+            style="width: 8rem"
+          />
+        </div>
+      </div>
+      <app-table [baseValue]="baseValue"></app-table>
+    </div>
+  </div>
+</div>
+
+<!-- [currencyMask]="{
+              prefix: 'R$ ',
+              thousands: '.',
+              decimal: ',',
+              align: 'left'
+            }" -->
