@@ -1,7 +1,7 @@
 <div class="card text-center" style="width: 35rem">
   <div class="card-body">
     <h3 class="card-title">ASSUMINDO AS TAXAS</h3>
-    <app-dropdown></app-dropdown>
+    <app-dropdown (planChanged)="planChanged($event)"></app-dropdown>
     <div class="container text-center mt-2">
       <div class="row border">
         <div class="col col-8">
@@ -18,7 +18,7 @@
           />
         </div>
       </div>
-      <app-table [baseValue]="baseValue"></app-table>
+      <app-table [interestValue]="interestValue"></app-table>
     </div>
   </div>
 </div>

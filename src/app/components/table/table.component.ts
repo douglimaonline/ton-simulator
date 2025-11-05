@@ -1,7 +1,6 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgFor } from '@angular/common';
-import { InterestCalculator } from '../../models/InterestCalculator.models';
-import { mockedInterestRates } from '../../mockeData';
+import { InterestCalculator } from '../../models/InterestCalculator.model';
 
 @Component({
   selector: 'app-table',
@@ -10,12 +9,6 @@ import { mockedInterestRates } from '../../mockeData';
   templateUrl: './table.component.html',
   styleUrl: './table.component.css',
 })
-export class TableComponent implements OnChanges {
-  @Input() baseValue!: number;
-  interestRates = mockedInterestRates;
-  feeTable!: InterestCalculator;
-
-  ngOnChanges(): void {
-    this.feeTable = new InterestCalculator(this.baseValue, mockedInterestRates);
-  }
+export class TableComponent {
+  @Input() interestValue!: InterestCalculator;
 }
