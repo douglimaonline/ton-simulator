@@ -4,11 +4,17 @@ import { TableComponent } from '../table/table.component';
 import { FormsModule } from '@angular/forms';
 import { Plan } from '../../models/plan.model';
 import { InterestCalculator } from '../../models/InterestCalculator.model';
+import { NgxCurrencyDirective } from 'ngx-currency';
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [DropdownComponent, TableComponent, FormsModule],
+  imports: [
+    DropdownComponent,
+    TableComponent,
+    FormsModule,
+    NgxCurrencyDirective,
+  ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
 })
@@ -17,9 +23,8 @@ export class CardComponent {
   selectedPlan?: Plan;
   interestValue: InterestCalculator = new InterestCalculator();
 
-  onInputChange(input: Event): void {
-    const inputElement = input.target as HTMLInputElement;
-    this.baseValue = Number(inputElement.value);
+  onInputChange(input: number): void {
+    this.baseValue = input;
     this.updateInterestValue();
   }
 

@@ -9,10 +9,16 @@
         </div>
         <div class="col border-start p-0">
           <input
-            type="number"
-            inputmode="decimal"
+            currencyMask
+            [currencyMask]="{
+              prefix: 'R$ ',
+              thousands: '.',
+              decimal: ',',
+              allowNegative: false,
+              precision: 2
+            }"
             [(ngModel)]="baseValue"
-            (input)="onInputChange($event)"
+            (ngModelChange)="onInputChange($event)"
             class="m-0 w-100 h-100 p-2"
             style="width: 8rem"
           />
@@ -22,10 +28,3 @@
     </div>
   </div>
 </div>
-
-<!-- [currencyMask]="{
-              prefix: 'R$ ',
-              thousands: '.',
-              decimal: ',',
-              align: 'left'
-            }" -->
