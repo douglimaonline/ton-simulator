@@ -1,14 +1,17 @@
-<div class="card text-center" style="width: 35rem">
+<div class="card text-center">
   <div class="card-body">
     <h3 class="card-title">ASSUMINDO AS TAXAS</h3>
     <app-dropdown (planChanged)="planChanged($event)"></app-dropdown>
-    <div class="container text-center mt-2">
-      <div class="row border">
-        <div class="col col-8">
+    <div class="text-center mt-2 w-100">
+      <div class="row">
+        <div class="col col-7">
           <h5 class="mt-2">Valor da Simulação</h5>
         </div>
-        <div class="col border-start p-0">
+        <div class="col p-0">
           <input
+            inputmode="numeric"
+            pattern="[0-9]*"
+            maxlength="7"
             currencyMask
             [currencyMask]="{
               prefix: 'R$ ',
@@ -19,7 +22,8 @@
             }"
             [(ngModel)]="baseValue"
             (ngModelChange)="onInputChange($event)"
-            class="m-0 w-100 h-100 p-2"
+            (click)="selectAll($event)"
+            class="m-0 h-100 p-2"
             style="width: 8rem"
           />
         </div>

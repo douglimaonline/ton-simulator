@@ -39,4 +39,9 @@ export class CardComponent {
       this.selectedPlan?.fees
     );
   }
+
+  selectAll(event: MouseEvent) {
+    const input = event.target as HTMLInputElement;
+    input.select();
+  }
 }

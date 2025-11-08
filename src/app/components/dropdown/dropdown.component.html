@@ -7,7 +7,7 @@
   >
     {{ selectedPlan.title }}
   </button>
-  <ul class="dropdown-menu w-100">
+  <ul class="dropdown-menu">
     <li *ngFor="let option of mockedPlans">
       <a class="dropdown-item" href="#" (click)="onSelect(option)">
         {{ option.title }}</a

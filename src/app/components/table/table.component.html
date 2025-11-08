@@ -1,26 +1,26 @@
 <table class="table-bordered w-100 mt-2">
   <thead>
     <tr class="table-active bg-secondary">
-      <th scope="col rounded-4">
+      <th class="px-1" scope="col rounded-4">
         Tarifa por tipo de <br />
         transação
       </th>
-      <th scope="col">VISA | MASTER</th>
-      <th scope="col">Valor a Receber</th>
+      <th class="px-1" scope="col">VISA | MASTER</th>
+      <th class="px-1" scope="col">Valor a Receber</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let interest of interestValue.interests">
-      <td>
+      <td class="px-1">
         {{
           interest.index == 0
             ? "Débito"
             : interest.index == 1
-            ? "Crédito à Vista"
-            : "Parcelado em " + interest.index + "x"
+            ? "À Vista"
+            : "Parcelado " + interest.index + "x"
         }}
       </td>
-      <td>{{ interest.rate.toString().replace(".", ",") }}%</td>
+      <td>{{ interest.rate.toFixed(2).toString().replace(".", ",") }}%</td>
       <td>
         {{ interest.result | currency : "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
       </td>
