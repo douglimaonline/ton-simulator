@@ -20,7 +20,9 @@
             : "Parcelado " + interest.index + "x"
         }}
       </td>
-      <td>{{ interest.rate.toFixed(2).toString().replace(".", ",") }}%</td>
+      <td style="width: 20px">
+        {{ interest.rate.toFixed(2).toString().replace(".", ",") }}%
+      </td>
       <td>
         {{ interest.result | currency : "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
       </td>

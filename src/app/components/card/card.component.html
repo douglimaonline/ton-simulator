@@ -11,14 +11,14 @@
           <input
             inputmode="numeric"
             pattern="[0-9]*"
-            maxlength="7"
             currencyMask
             [currencyMask]="{
               prefix: 'R$ ',
               thousands: '.',
               decimal: ',',
               allowNegative: false,
-              precision: 2
+              precision: 2,
+              max: 99999.99
             }"
             [(ngModel)]="baseValue"
             (ngModelChange)="onInputChange($event)"
