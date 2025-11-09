@@ -9,7 +9,12 @@
   </button>
   <ul class="dropdown-menu">
     <li *ngFor="let option of mockedPlans">
-      <a class="dropdown-item" href="#" (click)="onSelect(option)">
+      <a
+        class="dropdown-item"
+        href="#"
+        style="height: 30px"
+        (click)="onSelect(option)"
+      >
         {{ option.title }}</a
       >
     </li>

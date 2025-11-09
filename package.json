@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng build --output-path docs"
+      "predeploy": "if exist .\\docs rmdir /s /q .\\docs && ng build --output-path docs",
+      "deploy": "if exist .\\docs\\browser robocopy .\\docs\\browser .\\docs /MOVE /E && if exist .\\docs\\browser rmdir /s /q .\\docs\\browser && git add . && git commit -m \"Update fees\" && git push"
   },
   "private": true,
   "dependencies": {
