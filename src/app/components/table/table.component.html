@@ -6,7 +6,9 @@
         transação
       </th>
       <th class="px-1" scope="col">VISA | MASTER</th>
-      <th class="px-1" scope="col">Valor a Receber</th>
+      <th class="px-1" scope="col">
+        {{ feesToCostumer ? "Valor a Cobrar" : "Valor a Receber" }}
+      </th>
     </tr>
   </thead>
   <tbody>

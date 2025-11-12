@@ -22,5 +22,6 @@ registerLocaleData(localePt, 'pt-BR');
   styleUrls: ['./table.component.css'],
 })
 export class TableComponent {
+  @Input() feesToCostumer: boolean = false;
   @Input() interestValue!: InterestCalculator;
 }
