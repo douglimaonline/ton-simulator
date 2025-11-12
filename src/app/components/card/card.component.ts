@@ -7,7 +7,7 @@ import { mockedPlans } from '../../mockedData';
 import { InterestCalculator } from '../../models/InterestCalculator.model';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { InterestCalculatorService } from '../../InterestCalculatorService';
-import { Subscription } from 'rxjs';
+import { debounceTime, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-card',
@@ -24,6 +24,7 @@ import { Subscription } from 'rxjs';
 export class CardComponent implements OnInit, OnDestroy {
   @Input() feesToCostumer: boolean = false;
   baseValue: number = 3000;
+  private readonly inputSubject = new Subject<number>();
   planOptions: Plan[] = mockedPlans;
   selectedPlan?: Plan;
   interestValue: InterestCalculator = new InterestCalculator();
@@ -34,6 +35,10 @@ export class CardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.inputSubject
+      .pipe(debounceTime(1000))
+      .subscribe(() => this.updateInterestValue());
+
     this.sub = this.interestCalculatorService.interestCalculator$.subscribe(
       (interestValue) => {
         this.interestValue = this.feesToCostumer
@@ -50,7 +55,7 @@ export class CardComponent implements OnInit, OnDestroy {
 
   onInputChange(input: number): void {
     this.baseValue = input;
-    this.updateInterestValue();
+    this.inputSubject.next(input);
   }
 
   planChanged(plan: Plan): void {
@@ -61,7 +66,6 @@ export class CardComponent implements OnInit, OnDestroy {
   updateInterestValue(): void {
     const newInterestValue = new InterestCalculator(
       this.baseValue,
-      this.selectedPlan?.fees,
       this.selectedPlan
     );
     this.interestCalculatorService.setInterestCalculator(newInterestValue);
