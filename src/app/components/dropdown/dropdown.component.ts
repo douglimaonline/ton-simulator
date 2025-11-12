@@ -1,6 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { mockedPlans } from '../../mockedData';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Plan } from '../../models/plan.model';
 
 @Component({
@@ -11,11 +10,12 @@ import { Plan } from '../../models/plan.model';
   styleUrl: './dropdown.component.css',
 })
 export class DropdownComponent implements OnInit {
-  mockedPlans = mockedPlans;
-  selectedPlan = mockedPlans[0];
+  @Input() planOptions?: Plan[];
+  @Input() selectedPlan?: Plan;
   @Output() planChanged = new EventEmitter<Plan>();
 
   ngOnInit(): void {
+    this.selectedPlan = this.planOptions?.[0];
     this.planChanged.emit(this.selectedPlan);
   }
 

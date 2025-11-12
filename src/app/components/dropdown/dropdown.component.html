@@ -5,10 +5,10 @@
     data-bs-toggle="dropdown"
     aria-expanded="false"
   >
-    {{ selectedPlan.title }}
+    {{ selectedPlan?.title }}
   </button>
   <ul class="dropdown-menu">
-    <li *ngFor="let option of mockedPlans">
+    <li *ngFor="let option of planOptions">
       <a
         class="dropdown-item"
         href="#"
