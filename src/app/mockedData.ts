@@ -97,4 +97,60 @@ export const mockedPlans: Plan[] = [
   new Plan('Plano Ton Max (15k +  - 1 Dia)', tonMax15kPlusOneDayRates),
   new Plan('Ton Super (Mesmo Dia)', tonSuperSameDayRates),
   new Plan('Ton Super  (1 Dia)', tonSuperOneDayRates),
+  new Plan(
+    'Ton Black R$20mil (1 dia útil)',
+    [
+      1.36, 3.14, 5.38, 6.11, 6.84, 7.56, 8.27, 8.98, 9.68, 10.37, 11.05, 11.73,
+      12.39,
+    ]
+  ),
+  new Plan(
+    'Ton Black R$20mil (Na hora)',
+    [
+      2.28, 5.48, 10.88, 11.98, 12.58, 13.28, 13.98, 14.98, 15.58, 16.18, 16.88,
+      17.88, 18.28,
+    ]
+  ),
+
+  new Plan(
+    'Ton Black R$20mil/R$40mil (1 dia útil)',
+    [
+      0.84, 2.88, 4.21, 4.82, 5.43, 6.04, 6.63, 7.23, 7.81, 8.4, 8.97, 9.55,
+      10.11,
+    ]
+  ),
+  new Plan(
+    'Ton Black R$20mil/R$40mil  (Na hora)',
+    [
+      2.28, 5.48, 10.88, 11.98, 12.58, 13.28, 13.98, 14.98, 15.58, 16.18, 16.88,
+      17.88, 18.28,
+    ]
+  ),
+
+  new Plan(
+    'Ton Black R$40mil/R$80mil  (1 dia útil)',
+    [
+      0.78, 2.78, 4.07, 4.64, 5.2, 5.76, 6.31, 6.86, 7.41, 7.95, 8.48, 9.02,
+      9.55,
+    ]
+  ),
+  new Plan(
+    'Ton Black R$40mil/R$80mil  (Na hora)',
+    [
+      2.28, 5.48, 10.88, 11.98, 12.58, 13.28, 13.98, 14.98, 15.58, 16.18, 16.88,
+      17.88, 18.28,
+    ]
+  ),
+
+  new Plan(
+    'Ton Black +R$80mil  (1 dia útil)',
+    [0.74, 2.68, 3.93, 4.45, 4.97, 5.48, 5.98, 6.5, 6.98, 7.5, 7.98, 8.48, 8.98]
+  ),
+  new Plan(
+    'Ton Black +R$80mil (Na hora)',
+    [
+      2.28, 5.48, 10.88, 11.98, 12.58, 13.28, 13.98, 14.98, 15.58, 16.18, 16.88,
+      17.88, 18.28,
+    ]
+  ),
 ];
