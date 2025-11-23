@@ -1,13 +1,13 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { TableComponent } from '../table/table.component';
 import { FormsModule } from '@angular/forms';
 import { Plan } from '../../models/plan.model';
-import { mockedPlans } from '../../mockedData';
 import { InterestCalculator } from '../../models/InterestCalculator.model';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { InterestCalculatorService } from '../../InterestCalculatorService';
 import { debounceTime, Subject, Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-card',
@@ -17,15 +17,16 @@ import { debounceTime, Subject, Subscription } from 'rxjs';
     TableComponent,
     FormsModule,
     NgxCurrencyDirective,
+    CommonModule,
   ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
 })
-export class CardComponent implements OnInit, OnDestroy {
+export class CardComponent implements OnInit, OnDestroy, OnChanges {
   @Input() feesToCostumer: boolean = false;
+  @Input() planOptions: Plan[] = [];
   baseValue: number = 3000;
   private readonly inputSubject = new Subject<number>();
-  planOptions: Plan[] = mockedPlans;
   selectedPlan?: Plan;
   interestValue: InterestCalculator = new InterestCalculator();
   private sub!: Subscription;
@@ -33,6 +34,13 @@ export class CardComponent implements OnInit, OnDestroy {
   constructor(
     private readonly interestCalculatorService: InterestCalculatorService
   ) {}
+
+  ngOnChanges(): void {
+    if (this.planOptions.length > 0 && !this.selectedPlan) {
+      this.selectedPlan = this.planOptions[0];
+      this.updateInterestValue();
+    }
+  }
 
   ngOnInit(): void {
     this.inputSubject

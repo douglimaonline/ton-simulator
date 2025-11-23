@@ -1,4 +1,4 @@
-<div class="card text-center">
+<div *ngIf="planOptions.length > 0" class="card text-center">
   <div class="card-body">
     <h3 class="card-title">
       {{ feesToCostumer ? "PASSANDO PARA O CLIENTE" : "ASSUMINDO AS TAXAS" }}
