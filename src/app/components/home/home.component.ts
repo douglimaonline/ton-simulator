@@ -3,7 +3,6 @@ import { CardComponent } from '../card/card.component';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 import { Plan } from '../../models/plan.model';
-import { mockedPlans } from '../../mockedData';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +14,7 @@ import { mockedPlans } from '../../mockedData';
 export class HomeComponent implements OnInit {
   planOptions: Plan[] = [];
   ngOnInit(): void {
-    // this.fetchPlans(); // Uncomment this line when env variables are set
-    this.planOptions = mockedPlans;
+    this.fetchPlans();
   }
 
   async fetchPlans(): Promise<void> {

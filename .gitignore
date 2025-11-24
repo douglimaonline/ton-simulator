@@ -38,6 +38,10 @@ testem.log
 /typings
 *.xlsx
 
+# env files (can opt-in for committing if needed)
+*.env
+
+
 # System files
 .DS_Store
 Thumbs.db
