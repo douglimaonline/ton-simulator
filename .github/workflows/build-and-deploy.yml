@@ -32,11 +32,11 @@ jobs:
           EOF
         shell: bash
 
-      - name: Build (predeploy)
-        run: npm run predeploy
+      - name: Build (prod -> docs)
+        run: npm run build -- --configuration=production --output-path docs
 
       - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
           path: ./docs
 
