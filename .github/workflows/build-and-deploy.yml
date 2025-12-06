@@ -3,6 +3,13 @@ name: Build and Deploy
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
+
+# Required permissions for deploy-pages (id token + pages write)
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:
