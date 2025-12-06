@@ -8,8 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "predeploy": "rm -rf docs && ng build --configuration=production --output-path docs",
-    "deploy": "if [ -d ./docs/browser ]; then cp -r ./docs/browser/. ./docs/; rm -rf ./docs/browser; fi"
+    "predeploy": "rm -rf docs && ng build --configuration=production --output-path docs && if [ -d ./docs/browser ]; then cp -r ./docs/browser/. ./docs/; rm -rf ./docs/browser; fi"
   },
   "private": true,
   "dependencies": {
