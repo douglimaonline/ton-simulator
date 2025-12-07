@@ -5,10 +5,10 @@
     "ng": "ng",
     "start": "ng serve",
     "start:dev": "set \"NG_APP_ENV=dev\" && ng serve",
-    "build": "ng build --configuration=production --output-path docs --base-href /ton-simulator/",
+    "build": "ng build --configuration=production --output-path dist/ton-simulator --base-href /ton-simulator/ && npm run build:move-files",
+    "build:move-files": "node move-files.js",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "predeploy": "rm -rf docs && ng build --configuration=production --output-path docs && if [ -d ./docs/browser ]; then cp -r ./docs/browser/. ./docs/; rm -rf ./docs/browser; fi"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
