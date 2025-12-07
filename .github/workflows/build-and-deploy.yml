@@ -42,15 +42,11 @@ jobs:
       - name: Build (predeploy)
         run: npm run predeploy
 
-      - name: Show docs
-        run: |
-          echo "GITHUB_RUN_ID=$GITHUB_RUN_ID"
-          ls -la docs || true
-
-      - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v2
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: ./docs
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
