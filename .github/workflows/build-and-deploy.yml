@@ -42,8 +42,13 @@ jobs:
       - name: Build (predeploy)
         run: npm run predeploy
 
+      - name: Show docs
+        run: |
+          echo "GITHUB_RUN_ID=$GITHUB_RUN_ID"
+          ls -la docs || true
+
       - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v2
         with:
           path: ./docs
 
