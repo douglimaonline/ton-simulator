@@ -6,7 +6,7 @@
     "start": "ng serve",
     "start:dev": "set \"NG_APP_ENV=dev\" && ng serve",
     "build": "ng build --configuration=production --output-path dist/ton-simulator --base-href /ton-simulator/ && npm run build:move-files",
-    "build:move-files": "node move-files.js",
+    "build:move-files": "node scripts/move-files.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
