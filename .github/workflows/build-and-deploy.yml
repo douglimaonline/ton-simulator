@@ -39,8 +39,8 @@ jobs:
           EOF
         shell: bash
 
-      - name: Build (predeploy)
-        run: npm run predeploy
+      - name: Build project
+        run: npm run build
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
