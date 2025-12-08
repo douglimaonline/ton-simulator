@@ -1,13 +1,20 @@
-<table class="table-bordered w-100 mt-2">
+<table class="table w-100 mt-2">
   <thead>
     <tr class="table-active bg-secondary">
-      <th class="px-1" scope="col rounded-4">
-        Tarifa por tipo de <br />
+      <th scope="col rounded-4">
+        Tarifa por <br />
         transação
       </th>
-      <th class="px-1" scope="col">VISA | MASTER</th>
-      <th class="px-1" scope="col">
-        {{ feesToCostumer ? "Valor a Cobrar" : "Valor a Receber" }}
+      <th scope="col">VISA | MASTER</th>
+      <th scope="col">
+        <span *ngIf="feesToCostumer"
+          >Valor a <br />
+          Cobrar</span
+        >
+        <span *ngIf="!feesToCostumer"
+          >Valor a <br />
+          Receber</span
+        >
       </th>
     </tr>
   </thead>
