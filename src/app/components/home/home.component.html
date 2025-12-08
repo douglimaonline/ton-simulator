@@ -1,4 +1,56 @@
-<div class="container d-flex flex-wrap justify-content-center mt-5 gap-4">
-  <app-card [planOptions]="planOptions"></app-card>
-  <app-card [feesToCostumer]="true" [planOptions]="planOptions"></app-card>
+<div class="accordion m-2" id="accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseOne"
+        aria-expanded="true"
+        aria-controls="collapseOne"
+      >
+        <h3>Calculadora</h3>
+      </button>
+    </h2>
+    <div
+      id="collapseOne"
+      class="accordion-collapse collapse"
+      data-bs-parent="#accordion"
+    >
+      <div
+        class="container p-0 d-flex flex-wrap justify-content-center my-4 gap-4"
+        id="calculator-container"
+      >
+        <app-card [planOptions]="planOptions" id="card-own-fees"></app-card>
+        <app-card
+          [feesToCostumer]="true"
+          [planOptions]="planOptions"
+          id="card-fees-to-costumer"
+        ></app-card>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button collapsed show"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseTwo"
+        aria-expanded="false"
+        aria-controls="collapseTwo"
+      >
+        <h3>Atualizar Taxas</h3>
+      </button>
+    </h2>
+    <div
+      id="collapseTwo"
+      class="accordion-collapse collapse show"
+      data-bs-parent="#accordion"
+    >
+      <div class="container border rounded-1 my-4">
+        <app-fees-form></app-fees-form>
+      </div>
+    </div>
+  </div>
 </div>

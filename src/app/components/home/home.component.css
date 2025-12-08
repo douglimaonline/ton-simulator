@@ -1,0 +1,8 @@
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: transparent;
+  color: var(--bs-card-title-color);
+}

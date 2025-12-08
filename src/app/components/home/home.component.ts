@@ -3,11 +3,12 @@ import { CardComponent } from '../card/card.component';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 import { Plan } from '../../models/plan.model';
+import { FeesFormComponent } from '../fees-form/fees-form.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CardComponent],
+  imports: [CardComponent, FeesFormComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
