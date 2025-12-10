@@ -3,6 +3,7 @@
 }
 
 .accordion-button:not(.collapsed) {
+  box-shadow: none;
   background-color: transparent;
   color: var(--bs-card-title-color);
 }
