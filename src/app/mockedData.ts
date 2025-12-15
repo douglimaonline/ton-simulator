@@ -79,25 +79,26 @@ const tonSuperOneDayRates = [
 ];
 
 export const mockedPlans: Plan[] = [
-  new Plan('Plano ton Max Promocional', tonMaxProRates),
-  new Plan('Plano Ton Max (Até 2k)', tonMaxPro2kRates),
-  new Plan('Plano Ton Max (2k - 5k)', tonMaxPro5kRates),
-  new Plan('Plano Ton Max (5k - 10k)', tonMaxPro10kRates),
-  new Plan('Plano Ton Max (10k - 15k)', tonMaxPro15kRates),
-  new Plan('Plano Ton Max (15k+)', tonMaxPro15kPlusRates),
-  new Plan('Ton Pro Promocional', tonProRates),
-  new Plan('Ton Pro ate R$2mil (1 Dia)', tonPro2KOnedayRates),
-  new Plan('Ton Pro ate R$2mil (Mesmo Dia)', tonPro2KSameDayRates),
-  new Plan('Ton Pro acima de R$2mil (1 Dia)', tonProRates2KPlusOneday),
-  new Plan('Plano Ton Max (Até 2k - 1 Dia)', tonPro2KPlusSameDayRates),
-  new Plan('Plano Ton Max (Até 2k - 1 Dia)', tonMax2kOneDayRates),
-  new Plan('Plano Ton Max (2k - 5k - 1 Dia)', tonMax5kOneDayRates),
-  new Plan('Plano Ton Max (5k - 10k - 1 Dia)', tonMax10kOneDayRates),
-  new Plan('Plano Ton Max (10k - 15k - 1 Dia)', tonMax15kOneDayRates),
-  new Plan('Plano Ton Max (15k +  - 1 Dia)', tonMax15kPlusOneDayRates),
-  new Plan('Ton Super (Mesmo Dia)', tonSuperSameDayRates),
-  new Plan('Ton Super  (1 Dia)', tonSuperOneDayRates),
+  new Plan(1, 'Plano ton Max Promocional', tonMaxProRates),
+  new Plan(2, 'Plano Ton Max (Até 2k)', tonMaxPro2kRates),
+  new Plan(3, 'Plano Ton Max (2k - 5k)', tonMaxPro5kRates),
+  new Plan(4, 'Plano Ton Max (5k - 10k)', tonMaxPro10kRates),
+  new Plan(5, 'Plano Ton Max (10k - 15k)', tonMaxPro15kRates),
+  new Plan(6, 'Plano Ton Max (15k+)', tonMaxPro15kPlusRates),
+  new Plan(7, 'Ton Pro Promocional', tonProRates),
+  new Plan(8, 'Ton Pro ate R$2mil (1 Dia)', tonPro2KOnedayRates),
+  new Plan(9, 'Ton Pro ate R$2mil (Mesmo Dia)', tonPro2KSameDayRates),
+  new Plan(10, 'Ton Pro acima de R$2mil (1 Dia)', tonProRates2KPlusOneday),
+  new Plan(11, 'Plano Ton Max (Até 2k - 1 Dia)', tonPro2KPlusSameDayRates),
+  new Plan(12, 'Plano Ton Max (Até 2k - 1 Dia)', tonMax2kOneDayRates),
+  new Plan(13, 'Plano Ton Max (2k - 5k - 1 Dia)', tonMax5kOneDayRates),
+  new Plan(14, 'Plano Ton Max (5k - 10k - 1 Dia)', tonMax10kOneDayRates),
+  new Plan(15, 'Plano Ton Max (10k - 15k - 1 Dia)', tonMax15kOneDayRates),
+  new Plan(16, 'Plano Ton Max (15k +  - 1 Dia)', tonMax15kPlusOneDayRates),
+  new Plan(17, 'Ton Super (Mesmo Dia)', tonSuperSameDayRates),
+  new Plan(18, 'Ton Super  (1 Dia)', tonSuperOneDayRates),
   new Plan(
+    19,
     'Ton Black R$20mil (1 dia útil)',
     [
       1.36, 3.14, 5.38, 6.11, 6.84, 7.56, 8.27, 8.98, 9.68, 10.37, 11.05, 11.73,
@@ -105,6 +106,7 @@ export const mockedPlans: Plan[] = [
     ]
   ),
   new Plan(
+    20,
     'Ton Black R$20mil (Na hora)',
     [
       2.28, 5.48, 10.88, 11.98, 12.58, 13.28, 13.98, 14.98, 15.58, 16.18, 16.88,
@@ -113,6 +115,7 @@ export const mockedPlans: Plan[] = [
   ),
 
   new Plan(
+    21,
     'Ton Black R$20mil/R$40mil (1 dia útil)',
     [
       0.84, 2.88, 4.21, 4.82, 5.43, 6.04, 6.63, 7.23, 7.81, 8.4, 8.97, 9.55,
@@ -120,6 +123,7 @@ export const mockedPlans: Plan[] = [
     ]
   ),
   new Plan(
+    22,
     'Ton Black R$20mil/R$40mil  (Na hora)',
     [
       2.28, 5.48, 10.88, 11.98, 12.58, 13.28, 13.98, 14.98, 15.58, 16.18, 16.88,
@@ -128,6 +132,7 @@ export const mockedPlans: Plan[] = [
   ),
 
   new Plan(
+    23,
     'Ton Black R$40mil/R$80mil  (1 dia útil)',
     [
       0.78, 2.78, 4.07, 4.64, 5.2, 5.76, 6.31, 6.86, 7.41, 7.95, 8.48, 9.02,
@@ -135,6 +140,7 @@ export const mockedPlans: Plan[] = [
     ]
   ),
   new Plan(
+    24,
     'Ton Black R$40mil/R$80mil  (Na hora)',
     [
       2.28, 5.48, 10.88, 11.98, 12.58, 13.28, 13.98, 14.98, 15.58, 16.18, 16.88,
@@ -143,10 +149,12 @@ export const mockedPlans: Plan[] = [
   ),
 
   new Plan(
+    25,
     'Ton Black +R$80mil  (1 dia útil)',
     [0.74, 2.68, 3.93, 4.45, 4.97, 5.48, 5.98, 6.5, 6.98, 7.5, 7.98, 8.48, 8.98]
   ),
   new Plan(
+    26,
     'Ton Black +R$80mil (Na hora)',
     [
       2.28, 5.48, 10.88, 11.98, 12.58, 13.28, 13.98, 14.98, 15.58, 16.18, 16.88,
