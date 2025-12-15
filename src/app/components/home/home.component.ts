@@ -23,8 +23,12 @@ export class HomeComponent implements OnInit {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        this.planOptions.push(new Plan(data['title'], data['fees']));
+        this.planOptions.push(
+          new Plan(data['id'], data['title'], data['fees'])
+        );
       });
+      // Sort planOptions by id ascending
+      this.planOptions.sort((a, b) => a.id - b.id);
     } catch (error) {
       console.error('Error to get plans:', error);
     }
