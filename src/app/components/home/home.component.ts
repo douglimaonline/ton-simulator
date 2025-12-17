@@ -14,8 +14,14 @@ import { FeesFormComponent } from '../fees-form/fees-form.component';
 })
 export class HomeComponent implements OnInit {
   planOptions: Plan[] = [];
+  collapsed: boolean = false;
+
   ngOnInit(): void {
     this.fetchPlans();
+  }
+
+  collapseToggle(): void {
+    this.collapsed = !this.collapsed;
   }
 
   async fetchPlans(): Promise<void> {
@@ -28,7 +34,6 @@ export class HomeComponent implements OnInit {
           new Plan(data['id'], data['title'], data['fees'])
         );
       });
-      // Sort planOptions by id ascending
       this.planOptions.sort((a, b) => a.id - b.id);
     } catch (error) {
       console.error('Error to get plans:', error);

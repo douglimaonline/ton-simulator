@@ -1,15 +1,31 @@
-<table class="table w-100 my-2">
-  <thead>
-    <tr class="table-active bg-secondary">
-      <th class="px-1" scope="col rounded-4">Planos</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="px-1">Débito</td>
-    </tr>
-    <tr>
-      <td class="px-1">À Vista</td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="planOptions.length > 0" class="card text-center">
+  <div class="d-flex flex-column card-body gap-2">
+    <app-dropdown
+      class="mb-1"
+      [selectedPlan]="selectedPlan"
+      [planOptions]="planOptions"
+      (planChanged)="planChanged($event)"
+    ></app-dropdown>
+
+    <table class="table w-100 my-1">
+      <thead>
+        <tr class="table-active bg-secondary">
+          <th scope="col rounded-4">Planos</th>
+          <th scope="col rounded-4">Taxas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fee of selectedPlan?.fees; let i = index">
+          <td>
+            {{
+              i == 0 ? "Débito" : i == 1 ? "À Vista" : "Parcelado " + i + "x"
+            }}
+          </td>
+          <td class="d-flex align-items-center">
+            <input value="{{ fee }}" class="me-1" type="number" />%
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

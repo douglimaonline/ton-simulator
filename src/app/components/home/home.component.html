@@ -2,11 +2,11 @@
   <div class="accordion-item">
     <h2 class="accordion-header">
       <button
+        (click)="collapseToggle()"
         class="accordion-button"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#collapseOne"
-        aria-expanded="true"
         aria-controls="collapseOne"
       >
         <h3>Calculadora</h3>
@@ -14,7 +14,11 @@
     </h2>
     <div
       id="collapseOne"
-      class="accordion-collapse collapse"
+      class="{{
+        !collapsed
+          ? 'accordion-collapse collapse show'
+          : 'accordion-collapse collapse'
+      }}"
       data-bs-parent="#accordion"
     >
       <div
@@ -33,11 +37,11 @@
   <div class="accordion-item">
     <h2 class="accordion-header">
       <button
-        class="accordion-button collapsed show"
+        (click)="collapseToggle()"
+        class="accordion-button"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#collapseTwo"
-        aria-expanded="false"
         aria-controls="collapseTwo"
       >
         <h3>Atualizar Taxas</h3>
@@ -45,11 +49,15 @@
     </h2>
     <div
       id="collapseTwo"
-      class="accordion-collapse collapse show"
+      class="{{
+        collapsed
+          ? 'accordion-collapse collapse show'
+          : 'accordion-collapse collapse'
+      }}"
       data-bs-parent="#accordion"
     >
       <div class="container d-flex justify-content-center mb-4">
-        <app-fees-form></app-fees-form>
+        <app-fees-form [planOptions]="planOptions"></app-fees-form>
       </div>
     </div>
   </div>
