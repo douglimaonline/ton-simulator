@@ -25,7 +25,7 @@ import { ToastComponent } from '../toast/toast.component';
   styleUrl: './fees-form.component.css',
 })
 export class FeesFormComponent {
-  @Input() planOptions: Plan[] = [];
+  @Input() planOptions: Plan[] | null = [];
   @ViewChild('modalRef') modal!: ModalComponent;
   @ViewChild('loadingRef') loading!: LoadingComponent;
   @ViewChild('toastRef') toast!: ToastComponent;

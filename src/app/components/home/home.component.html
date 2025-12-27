@@ -25,10 +25,13 @@
         class="container p-0 d-flex flex-wrap justify-content-center mb-4 gap-5"
         id="calculator-container"
       >
-        <app-card [planOptions]="planOptions" id="card-own-fees"></app-card>
+        <app-card
+          [planOptions]="planOptions$ | async"
+          id="card-own-fees"
+        ></app-card>
         <app-card
           [feesToCostumer]="true"
-          [planOptions]="planOptions"
+          [planOptions]="planOptions$ | async"
           id="card-fees-to-costumer"
         ></app-card>
       </div>
@@ -57,7 +60,7 @@
       data-bs-parent="#accordion"
     >
       <div class="container d-flex justify-content-center mb-4">
-        <app-fees-form [planOptions]="planOptions"></app-fees-form>
+        <app-fees-form [planOptions]="planOptions$ | async"></app-fees-form>
       </div>
     </div>
   </div>
