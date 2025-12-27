@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../modal/modal.component';
 import { Modal } from '../../models/Modal.model';
 import { LoadingComponent } from '../loading/loading.component';
+import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'app-fees-form',
@@ -18,6 +19,7 @@ import { LoadingComponent } from '../loading/loading.component';
     FormsModule,
     ModalComponent,
     LoadingComponent,
+    ToastComponent,
   ],
   templateUrl: './fees-form.component.html',
   styleUrl: './fees-form.component.css',
@@ -26,6 +28,7 @@ export class FeesFormComponent {
   @Input() planOptions: Plan[] = [];
   @ViewChild('modalRef') modal!: ModalComponent;
   @ViewChild('loadingRef') loading!: LoadingComponent;
+  @ViewChild('toastRef') toast!: ToastComponent;
   selectedPlan?: Plan;
   modelFees: number[] = Array(13);
   editMode: boolean = false;
@@ -34,6 +37,10 @@ export class FeesFormComponent {
     console.log('Fees change confirmed.'); // Implement call for firebase service here
     this.resetForm();
     this.showLoading();
+    setTimeout(() => {
+      this.loading.hide();
+      this.toast.show('Taxas atualizadas.');
+    }, 2000);
   }
 
   planChanged(plan: Plan): void {

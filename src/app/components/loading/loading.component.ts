@@ -10,19 +10,23 @@ declare const bootstrap: any;
 })
 export class LoadingComponent implements AfterViewInit {
   @ViewChild('loading', { static: true })
-  modalContainer!: ElementRef<HTMLDivElement>;
+  loadingContainer!: ElementRef<HTMLDivElement>;
 
-  private modal: any;
+  private loading: any;
 
   show() {
-    if (this.modal) {
-      this.modal.show();
+    if (this.loading) {
+      this.loading.show();
     }
   }
 
+  hide() {
+    this.loading.hide();
+  }
+
   ngAfterViewInit() {
-    const modalEl = this.modalContainer.nativeElement;
-    this.modal = new bootstrap.Modal(modalEl, {
+    const loadingEl = this.loadingContainer.nativeElement;
+    this.loading = new bootstrap.Modal(loadingEl, {
       backdrop: 'static',
       keyboard: false,
     });
