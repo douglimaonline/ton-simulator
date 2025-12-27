@@ -6,6 +6,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../modal/modal.component';
 import { Modal } from '../../models/Modal.model';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-fees-form',
@@ -16,6 +17,7 @@ import { Modal } from '../../models/Modal.model';
     NgxCurrencyDirective,
     FormsModule,
     ModalComponent,
+    LoadingComponent,
   ],
   templateUrl: './fees-form.component.html',
   styleUrl: './fees-form.component.css',
@@ -23,6 +25,7 @@ import { Modal } from '../../models/Modal.model';
 export class FeesFormComponent {
   @Input() planOptions: Plan[] = [];
   @ViewChild('modalRef') modal!: ModalComponent;
+  @ViewChild('loadingRef') loading!: LoadingComponent;
   selectedPlan?: Plan;
   modelFees: number[] = Array(13);
   editMode: boolean = false;
@@ -30,6 +33,7 @@ export class FeesFormComponent {
   handleConfirm(): void {
     console.log('Fees change confirmed.'); // Implement call for firebase service here
     this.resetForm();
+    this.showLoading();
   }
 
   planChanged(plan: Plan): void {
@@ -71,5 +75,9 @@ export class FeesFormComponent {
 
   showModal(validChanges: boolean): void {
     this.modal.show(Modal.data(validChanges));
+  }
+
+  showLoading(): void {
+    this.loading.show();
   }
 }
