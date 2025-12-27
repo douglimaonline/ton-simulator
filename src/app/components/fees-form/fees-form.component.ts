@@ -1,22 +1,36 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Plan } from '../../models/plan.model';
 import { CommonModule } from '@angular/common';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { FormsModule } from '@angular/forms';
+import { ModalComponent } from '../modal/modal.component';
+import { Modal } from '../../models/Modal.model';
 
 @Component({
   selector: 'app-fees-form',
   standalone: true,
-  imports: [CommonModule, DropdownComponent, NgxCurrencyDirective, FormsModule],
+  imports: [
+    CommonModule,
+    DropdownComponent,
+    NgxCurrencyDirective,
+    FormsModule,
+    ModalComponent,
+  ],
   templateUrl: './fees-form.component.html',
   styleUrl: './fees-form.component.css',
 })
 export class FeesFormComponent {
   @Input() planOptions: Plan[] = [];
+  @ViewChild('modalRef') modal!: ModalComponent;
   selectedPlan?: Plan;
   modelFees: number[] = Array(13);
   editMode: boolean = false;
+
+  handleConfirm(): void {
+    console.log('Fees change confirmed.'); // Implement call for firebase service here
+    this.resetForm();
+  }
 
   planChanged(plan: Plan): void {
     this.selectedPlan = plan;
@@ -43,8 +57,7 @@ export class FeesFormComponent {
       this.selectedPlan!.title,
       this.selectedPlan!.fees.map((fee, i) => this.modelFees[i] ?? fee)
     );
-    const isValid = this.validateChanges(editedPlan);
-    console.log('Valid Change:', isValid);
+    this.showModal(this.validateChanges(editedPlan));
   }
 
   resetForm(): void {
@@ -54,5 +67,9 @@ export class FeesFormComponent {
 
   validateChanges(editedPlan: Plan): boolean {
     return !(JSON.stringify(this.selectedPlan) === JSON.stringify(editedPlan));
+  }
+
+  showModal(validChanges: boolean): void {
+    this.modal.show(Modal.data(validChanges));
   }
 }
