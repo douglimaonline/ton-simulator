@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 import { Plan } from '../../models/plan.model';
 import { FeesFormComponent } from '../fees-form/fees-form.component';
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { PlanService } from '../../services/plan.service';
 import { AsyncPipe } from '@angular/common';
 

@@ -1,4 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Plan } from '../../models/plan.model';
 import { CommonModule } from '@angular/common';
 import { DropdownComponent } from '../dropdown/dropdown.component';
@@ -8,6 +9,8 @@ import { ModalComponent } from '../modal/modal.component';
 import { Modal } from '../../models/Modal.model';
 import { LoadingComponent } from '../loading/loading.component';
 import { ToastComponent } from '../toast/toast.component';
+import { PlanService } from '../../services/plan.service';
+import { InterestCalculatorService } from '../../InterestCalculatorService';
 
 @Component({
   selector: 'app-fees-form',
@@ -30,17 +33,26 @@ export class FeesFormComponent {
   @ViewChild('loadingRef') loading!: LoadingComponent;
   @ViewChild('toastRef') toast!: ToastComponent;
   selectedPlan?: Plan;
+  editedPlan?: Plan;
   modelFees: number[] = Array(13);
   editMode: boolean = false;
 
-  handleConfirm(): void {
-    console.log('Fees change confirmed.'); // Implement call for firebase service here
-    this.resetForm();
-    this.showLoading();
-    setTimeout(() => {
-      this.loading.hide();
-      this.toast.show('Taxas atualizadas.');
-    }, 2000);
+  constructor(
+    private planService: PlanService,
+    private interestCalculatorService: InterestCalculatorService
+  ) {}
+
+  async handleConfirm(): Promise<void> {
+    await this.showLoading();
+
+    try {
+      const result = await this.planService.editPlan(this.editedPlan!);
+      this.handleEditPlan(result);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.hideLoading();
+    }
   }
 
   planChanged(plan: Plan): void {
@@ -63,12 +75,12 @@ export class FeesFormComponent {
       return;
     }
 
-    const editedPlan = new Plan(
+    this.editedPlan = new Plan(
       this.selectedPlan!.id,
       this.selectedPlan!.title,
       this.selectedPlan!.fees.map((fee, i) => this.modelFees[i] ?? fee)
     );
-    this.showModal(this.validateChanges(editedPlan));
+    this.showModal(this.validateChanges(this.editedPlan));
   }
 
   resetForm(): void {
@@ -86,5 +98,23 @@ export class FeesFormComponent {
 
   showLoading(): void {
     this.loading.show();
+  }
+
+  private hideLoading(): void {
+    this.loading.hide();
+  }
+
+  private handleEditPlan(result: {
+    success: boolean;
+    plan?: string | undefined;
+    message: string;
+  }): void {
+    if (result.success) {
+      console.log(result);
+      this.resetForm();
+      this.toast.show('Taxas atualizadas.');
+    } else {
+      this.toast.show('Erro ao atualizar taxas.');
+    }
   }
 }
