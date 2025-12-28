@@ -8,13 +8,15 @@ declare const bootstrap: any;
 })
 export class ToastComponent implements AfterViewInit {
   message?: string;
+  success: boolean = false;
 
   @ViewChild('toast', { static: true })
   toastContainer!: ElementRef<HTMLDivElement>;
 
   private toast!: any;
 
-  show(message: string) {
+  show(message: string, success: boolean = true): void {
+    this.success = success;
     this.message = message;
 
     if (this.toast) {

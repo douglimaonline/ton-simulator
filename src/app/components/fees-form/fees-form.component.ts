@@ -1,5 +1,4 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { Plan } from '../../models/plan.model';
 import { CommonModule } from '@angular/common';
 import { DropdownComponent } from '../dropdown/dropdown.component';
@@ -10,7 +9,6 @@ import { Modal } from '../../models/Modal.model';
 import { LoadingComponent } from '../loading/loading.component';
 import { ToastComponent } from '../toast/toast.component';
 import { PlanService } from '../../services/plan.service';
-import { InterestCalculatorService } from '../../InterestCalculatorService';
 
 @Component({
   selector: 'app-fees-form',
@@ -37,10 +35,7 @@ export class FeesFormComponent {
   modelFees: number[] = Array(13);
   editMode: boolean = false;
 
-  constructor(
-    private planService: PlanService,
-    private interestCalculatorService: InterestCalculatorService
-  ) {}
+  constructor(private planService: PlanService) {}
 
   async handleConfirm(): Promise<void> {
     await this.showLoading();
@@ -50,8 +45,6 @@ export class FeesFormComponent {
       this.handleEditPlan(result);
     } catch (error) {
       console.error(error);
-    } finally {
-      this.hideLoading();
     }
   }
 
@@ -110,11 +103,18 @@ export class FeesFormComponent {
     message: string;
   }): void {
     if (result.success) {
-      console.log(result);
       this.resetForm();
-      this.toast.show('Taxas atualizadas.');
+      this.toast.show('Taxas atualizadas.', result.success);
+      this.navigateToCalculator();
     } else {
-      this.toast.show('Erro ao atualizar taxas.');
+      this.toast.show('Erro ao atualizar taxas.', result.success);
+      this.hideLoading();
     }
+  }
+
+  private navigateToCalculator(): void {
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   }
 }

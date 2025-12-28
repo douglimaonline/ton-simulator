@@ -5,7 +5,7 @@
 >
   <div
     #toast
-    class="toast text-bg-secondary"
+    class="toast {{ success ? 'text-bg-success' : 'text-bg-danger' }}"
     role="alert"
     aria-live="assertive"
     aria-atomic="true"
