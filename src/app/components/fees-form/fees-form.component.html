@@ -1,0 +1,61 @@
+<div *ngIf="planOptions && planOptions.length > 0" class="card text-center">
+  <div class="d-flex flex-column card-body gap-2">
+    <div class="row mb-2 gx-0">
+      <div class="col-9">
+        <app-dropdown
+          [selectedPlan]="selectedPlan"
+          [planOptions]="planOptions"
+          (planChanged)="planChanged($event)"
+        ></app-dropdown>
+      </div>
+      <div class="col-3">
+        <button type="button" class="btn btn-secondary" (click)="onClick()">
+          {{ editMode ? "Salvar" : "Editar" }}
+        </button>
+      </div>
+    </div>
+
+    <div class="container text-center border rounded-1 pb-2">
+      <div class="row py-1 mb-1" id="head-row">
+        <div class="col-6 py-1 head-row">Planos</div>
+        <div class="col-6 py-1 head-row">Taxas</div>
+      </div>
+
+      <div
+        *ngFor="let fee of selectedPlan?.fees; let i = index"
+        class="row gx-5"
+      >
+        <div
+          class="col-6 py-1 d-flex align-items-center justify-content-center"
+        >
+          {{ i == 0 ? "Débito" : i == 1 ? "À Vista" : "Parcelado " + i + "x" }}
+        </div>
+        <div class="col-6 py-1 d-flex align-items-center">
+          <input
+            [disabled]="!editMode"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            currencyMask
+            [currencyMask]="{
+              prefix: '',
+              decimal: ',',
+              allowNegative: false,
+              precision: 2,
+              min: 0.0,
+              max: 100.0
+            }"
+            [ngModel]="fee"
+            [ngModelOptions]="{ updateOn: 'blur' }"
+            (ngModelChange)="onInputChange($event, i)"
+            type="text"
+            class="form-control form-control-sm text-center me-2"
+            (click)="selectAll($event)"
+          />%
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modal #modalRef (onConfirm)="handleConfirm()"></app-modal>
+<app-loading #loadingRef></app-loading>
+<app-toast #toastRef></app-toast>

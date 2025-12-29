@@ -24,7 +24,7 @@ import { CommonModule } from '@angular/common';
 })
 export class CardComponent implements OnInit, OnDestroy, OnChanges {
   @Input() feesToCostumer: boolean = false;
-  @Input() planOptions: Plan[] = [];
+  @Input() planOptions: Plan[] | null = [];
   baseValue: number = 3000;
   private readonly inputSubject = new Subject<number>();
   selectedPlan?: Plan;
@@ -36,7 +36,7 @@ export class CardComponent implements OnInit, OnDestroy, OnChanges {
   ) {}
 
   ngOnChanges(): void {
-    if (this.planOptions.length > 0 && !this.selectedPlan) {
+    if (this.planOptions && this.planOptions.length > 0 && !this.selectedPlan) {
       this.selectedPlan = this.planOptions[0];
       this.updateInterestValue();
     }

@@ -6,7 +6,7 @@ const docsPath = path.join(__dirname, '..', 'docs');
 const distPath = path.join(__dirname, '..', 'dist');
 
 if (fs.existsSync(browserPath)) {
-    console.log('Movendo arquivos da pasta browser para docs...');
+    console.log('Moving files from browser folder to docs...');
     
     const files = fs.readdirSync(browserPath);
     files.forEach(file => {
@@ -15,10 +15,10 @@ if (fs.existsSync(browserPath)) {
         fs.renameSync(src, dest);
     });
     
-    console.log('Deletando pasta dist...');
+    console.log('Deleting dist folder...');
     fs.rmSync(distPath, { recursive: true, force: true });
     
-    console.log('Build finalizado com sucesso!');
+    console.log('Build completed successfully!');
 } else {
-    console.log('Pasta browser não encontrada!');
+    console.log('Browser folder not found!');
 }

@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "start:dev": "set \"NG_APP_ENV=dev\" && ng serve",
+    "start": "set \"NG_APP_ENV=dev\" && ng serve",
     "build": "ng build --configuration=production --output-path dist/ton-simulator --base-href ./ && npm run build:move-files",
     "build:move-files": "node scripts/move-files.js",
     "watch": "ng build --watch --configuration development",

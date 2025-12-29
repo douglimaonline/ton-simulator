@@ -1,4 +1,67 @@
-<div class="container d-flex flex-wrap justify-content-center mt-5 gap-4">
-  <app-card [planOptions]="planOptions"></app-card>
-  <app-card [feesToCostumer]="true" [planOptions]="planOptions"></app-card>
+<div class="accordion m-2" id="accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        (click)="collapseToggle()"
+        class="accordion-button"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseOne"
+        aria-controls="collapseOne"
+      >
+        <h3>Calculadora</h3>
+      </button>
+    </h2>
+    <div
+      id="collapseOne"
+      class="{{
+        !collapsed
+          ? 'accordion-collapse collapse show'
+          : 'accordion-collapse collapse'
+      }}"
+      data-bs-parent="#accordion"
+    >
+      <div
+        class="container p-0 d-flex flex-wrap justify-content-center mb-4 gap-5"
+        id="calculator-container"
+      >
+        <app-card
+          [planOptions]="planOptions$ | async"
+          id="card-own-fees"
+        ></app-card>
+        <app-card
+          [feesToCostumer]="true"
+          [planOptions]="planOptions$ | async"
+          id="card-fees-to-costumer"
+        ></app-card>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        (click)="collapseToggle()"
+        class="accordion-button"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseTwo"
+        aria-controls="collapseTwo"
+      >
+        <h3>Atualizar Taxas</h3>
+      </button>
+    </h2>
+    <div
+      id="collapseTwo"
+      class="{{
+        collapsed
+          ? 'accordion-collapse collapse show'
+          : 'accordion-collapse collapse'
+      }}"
+      data-bs-parent="#accordion"
+    >
+      <div class="container d-flex justify-content-center mb-4">
+        <app-fees-form [planOptions]="planOptions$ | async"></app-fees-form>
+      </div>
+    </div>
+  </div>
 </div>

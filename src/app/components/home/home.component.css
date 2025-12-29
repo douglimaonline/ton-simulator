@@ -1,0 +1,15 @@
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+  box-shadow: none;
+  background-color: transparent;
+  color: var(--bs-card-title-color);
+}
+
+@media only screen and (max-width: 600px) {
+  .accordion-item {
+    border: none;
+  }
+}

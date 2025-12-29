@@ -1,0 +1,15 @@
+<div
+  #toastContainer
+  class="toast-container position-fixed top-0 end-0 p-3"
+  style="z-index: 1080"
+>
+  <div
+    #toast
+    class="toast {{ success ? 'text-bg-success' : 'text-bg-danger' }}"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="toast-body">{{ message }}</div>
+  </div>
+</div>
