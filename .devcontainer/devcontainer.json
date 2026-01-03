@@ -1,0 +1,21 @@
+{
+  "name": "Node.js 24 + pnpm Dev Container",
+  "dockerFile": "Dockerfile",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached"
+  ],
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "settings": { "terminal.integrated.defaultProfile.linux": "sh" },
+      "extensions": [
+        "ms-vscode.vscode-node-validate",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+  "postCreateCommand": "pnpm install",
+  "forwardPorts": [3000],
+  "remoteUser": "node"
+}
