@@ -32,7 +32,7 @@ export class FeesFormComponent {
   @ViewChild('toastRef') toast!: ToastComponent;
   selectedPlan?: Plan;
   editedPlan?: Plan;
-  modelFees: number[] = Array(13);
+  modelFees: number[] = Array(18);
   editMode: boolean = false;
 
   constructor(private planService: PlanService) {}
@@ -71,7 +71,7 @@ export class FeesFormComponent {
     this.editedPlan = new Plan(
       this.selectedPlan!.id,
       this.selectedPlan!.title,
-      this.selectedPlan!.fees.map((fee, i) => this.modelFees[i] ?? fee)
+      this.selectedPlan!.fees.map((fee, i) => this.modelFees[i] ?? fee),
     );
     this.showModal(this.validateChanges(this.editedPlan));
   }

@@ -15,9 +15,9 @@ export class PlanService {
   }
 
   async editPlan(
-    plan: Plan
+    plan: Plan,
   ): Promise<{ success: boolean; plan?: string; message: string }> {
-    const planRef = doc(db, 'Plans', plan.id.toString()); // change for 'Plans' in production
+    const planRef = doc(db, 'Plans', plan.id.toString()); // 'Plans' for production, 'Plans test' for testing
 
     try {
       await setDoc(planRef, {
@@ -42,7 +42,7 @@ export class PlanService {
 
   private async fetchPlans(): Promise<Plan[]> {
     const plans: Plan[] = [];
-    const q = query(collection(db, 'Plans')); // change for 'Plans' in production
+    const q = query(collection(db, 'Plans')); // 'Plans' for production, 'Plans test' for testing
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
