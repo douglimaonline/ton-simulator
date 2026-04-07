@@ -17,5 +17,4 @@
   },
   "postCreateCommand": "pnpm install --frozen-lockfile --yes",
   "forwardPorts": [3000],
-  "remoteUser": "node"
 }
