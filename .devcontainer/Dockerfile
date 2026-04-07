@@ -1,15 +1,15 @@
 # Last Node Image
 FROM node:24-alpine
 
-# Navigate to app
 WORKDIR /app
 
-# Activate pnpm
-RUN corepack enable
+# evita prompt do corepack
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 
-# Install pnpm
-RUN npm install -g pnpm@10.33.0
+# ativa corepack e instala pnpm
+RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
 
-# Keep the container running
+# opcional (se precisar git)
+RUN apk update && apk add git
+
 CMD [ "sh", "-c", "while sleep 1000; do :; done" ]
-
