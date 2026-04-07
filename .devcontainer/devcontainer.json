@@ -2,7 +2,8 @@
   "name": "Node.js 24 + pnpm Dev Container",
   "dockerFile": "Dockerfile",
   "mounts": [
-    "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached"
+    "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached",
+    "target=/app/node_modules,type=volume"
   ],
   "workspaceFolder": "/app",
   "customizations": {
@@ -15,5 +16,6 @@
       ]
     }
   },
+  "postCreateCommand": "pnpm install --frozen-lockfile",
   "forwardPorts": [3000]
 }
