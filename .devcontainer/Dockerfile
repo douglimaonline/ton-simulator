@@ -8,7 +8,7 @@ WORKDIR /app
 RUN corepack enable
 
 # Activate corepack and install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
 
 # Keep the container running
 CMD [ "sh", "-c", "while sleep 1000; do :; done" ]
