@@ -15,6 +15,6 @@
       ]
     }
   },
-  "postCreateCommand": "pnpm install --frozen-lockfile --yes",
+  "postCreateCommand": "pnpm install --frozen-lockfile"
   "forwardPorts": [3000],
 }
