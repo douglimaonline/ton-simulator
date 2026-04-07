@@ -2,8 +2,8 @@
   "name": "Node.js 24 + pnpm Dev Container",
   "dockerFile": "Dockerfile",
   "mounts": [
-    "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached",
-    "target=/app/node_modules,type=volume"
+    "source=${localWorkspaceFolder},target=/app,type=bind",
+    "source=node_modules,target=/app/node_modules,type=volume"
   ],
   "workspaceFolder": "/app",
   "customizations": {
