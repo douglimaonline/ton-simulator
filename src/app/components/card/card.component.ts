@@ -31,6 +31,10 @@ export class CardComponent implements OnInit, OnDestroy, OnChanges {
   interestValue: InterestCalculator = new InterestCalculator();
   private sub!: Subscription;
 
+  get inputId(): string {
+    return this.feesToCostumer ? 'base-value-customer' : 'base-value-own';
+  }
+
   constructor(
     private readonly interestCalculatorService: InterestCalculatorService
   ) {}
@@ -44,7 +48,7 @@ export class CardComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit(): void {
     this.inputSubject
-      .pipe(debounceTime(1000))
+      .pipe(debounceTime(400))
       .subscribe(() => this.updateInterestValue());
 
     this.sub = this.interestCalculatorService.interestCalculator$.subscribe(

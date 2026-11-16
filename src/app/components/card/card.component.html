@@ -1,46 +1,60 @@
 <div
   *ngIf="planOptions && planOptions.length > 0 && interestValue"
-  class="card text-center"
+  class="card app-card h-100 shadow-sm"
 >
-  <div class="card-body">
-    <h3 class="card-title">
-      {{ feesToCostumer ? "PASSANDO PARA O CLIENTE" : "ASSUMINDO AS TAXAS" }}
-    </h3>
-    <app-dropdown
-      [selectedPlan]="selectedPlan"
-      [planOptions]="planOptions"
-      (planChanged)="planChanged($event)"
-    ></app-dropdown>
-    <div class="text-center mt-2 w-100">
-      <div class="row">
-        <div class="col col-7">
-          <h5 class="mt-2">Valor da Simulação</h5>
-        </div>
-        <div class="col p-0">
-          <input
-            inputmode="numeric"
-            pattern="[0-9]*"
-            currencyMask
-            [currencyMask]="{
-              prefix: 'R$ ',
-              thousands: '.',
-              decimal: ',',
-              allowNegative: false,
-              precision: 2,
-              max: 999999.99
-            }"
-            [(ngModel)]="interestValue.baseValue"
-            (ngModelChange)="onInputChange($event)"
-            (click)="selectAll($event)"
-            class="m-0 h-100 p-2"
-            style="width: 8rem"
-          />
-        </div>
+  <div class="card-header px-3 py-3">
+    <span class="app-eyebrow">
+      {{ feesToCostumer ? "Passando para o cliente" : "Assumindo as taxas" }}
+    </span>
+    <p class="small text-body-secondary mb-0 mt-1">
+      {{
+        feesToCostumer
+          ? "Quanto cobrar para receber o valor integral."
+          : "Quanto você recebe descontando as taxas."
+      }}
+    </p>
+  </div>
+
+  <div class="card-body px-3 pt-3 pb-2">
+    <div class="row g-2 mb-3">
+      <div class="col-12 col-sm-6">
+        <label class="form-label small text-body-secondary mb-1">Plano</label>
+        <app-dropdown
+          [selectedPlan]="selectedPlan"
+          [planOptions]="planOptions"
+          (planChanged)="planChanged($event)"
+        ></app-dropdown>
       </div>
-      <app-table
-        [interestValue]="interestValue"
-        [feesToCostumer]="feesToCostumer"
-      ></app-table>
+      <div class="col-12 col-sm-6">
+        <label
+          class="form-label small text-body-secondary mb-1"
+          [attr.for]="inputId"
+          >Valor da simulação</label
+        >
+        <input
+          [id]="inputId"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          currencyMask
+          [currencyMask]="{
+            prefix: 'R$ ',
+            thousands: '.',
+            decimal: ',',
+            allowNegative: false,
+            precision: 2,
+            max: 999999.99
+          }"
+          [(ngModel)]="interestValue.baseValue"
+          (ngModelChange)="onInputChange($event)"
+          (click)="selectAll($event)"
+          class="form-control fw-semibold tabular"
+        />
+      </div>
     </div>
+
+    <app-table
+      [interestValue]="interestValue"
+      [feesToCostumer]="feesToCostumer"
+    ></app-table>
   </div>
 </div>

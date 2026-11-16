@@ -15,13 +15,13 @@ import { AsyncPipe } from '@angular/common';
 })
 export class HomeComponent {
   planOptions$: Observable<Plan[]>;
-  collapsed: boolean = false;
+  activeTab: 'calculator' | 'fees' = 'calculator';
 
   constructor(private planService: PlanService) {
     this.planOptions$ = this.planService.getPlans();
   }
 
-  collapseToggle(): void {
-    this.collapsed = !this.collapsed;
+  selectTab(tab: 'calculator' | 'fees'): void {
+    this.activeTab = tab;
   }
 }

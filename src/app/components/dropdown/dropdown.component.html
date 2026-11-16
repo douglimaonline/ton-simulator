@@ -1,22 +1,22 @@
-<div class="d-flex w-100">
+<div class="dropdown app-dropdown w-100">
   <button
     class="btn btn-secondary dropdown-toggle w-100"
     type="button"
     data-bs-toggle="dropdown"
     aria-expanded="false"
   >
-    {{ selectedPlan?.title }}
+    <span class="text-truncate">{{ selectedPlan?.title }}</span>
   </button>
-  <ul class="dropdown-menu">
+  <ul class="dropdown-menu w-100 shadow">
     <li *ngFor="let option of planOptions">
-      <a
+      <button
+        type="button"
         class="dropdown-item"
-        href="#"
-        style="height: 30px"
+        [class.active]="option.id === selectedPlan?.id"
         (click)="onSelect(option)"
       >
-        {{ option.title }}</a
-      >
+        {{ option.title }}
+      </button>
     </li>
   </ul>
 </div>

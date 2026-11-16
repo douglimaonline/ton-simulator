@@ -1,40 +1,35 @@
-<table class="table w-100 mt-2">
-  <thead>
-    <tr class="table-active bg-secondary">
-      <th scope="col rounded-4">
-        Tarifa por <br />
-        transação
-      </th>
-      <th scope="col">VISA | MASTER</th>
-      <th scope="col">
-        <span *ngIf="feesToCostumer"
-          >Valor a <br />
-          Cobrar</span
-        >
-        <span *ngIf="!feesToCostumer"
-          >Valor a <br />
-          Receber</span
-        >
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let interest of interestValue.interests">
-      <td class="px-1">
-        {{
-          interest.index == 0
-            ? "Débito"
-            : interest.index == 1
-            ? "À Vista"
-            : "Parcelado " + interest.index + "x"
-        }}
-      </td>
-      <td style="width: 20px">
-        {{ interest.rate.toFixed(2).toString().replace(".", ",") }}%
-      </td>
-      <td>
-        {{ interest.result | currency : "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-sm table-striped table-hover align-middle mb-0 tabular">
+    <caption class="small text-body-secondary pb-0">
+      Taxas para bandeiras Visa e Mastercard.
+    </caption>
+    <thead>
+      <tr class="small text-body-secondary">
+        <th scope="col" class="fw-semibold">Modalidade</th>
+        <th scope="col" class="fw-semibold text-end">Taxa</th>
+        <th scope="col" class="fw-semibold text-end">
+          {{ feesToCostumer ? "A cobrar" : "A receber" }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let interest of interestValue.interests">
+        <td class="text-nowrap">
+          {{
+            interest.index == 0
+              ? "Débito"
+              : interest.index == 1
+              ? "À vista"
+              : "Parcelado " + interest.index + "x"
+          }}
+        </td>
+        <td class="text-end text-nowrap text-body-secondary">
+          {{ interest.rate.toFixed(2).toString().replace(".", ",") }}%
+        </td>
+        <td class="text-end text-nowrap fw-semibold">
+          {{ interest.result | currency : "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
