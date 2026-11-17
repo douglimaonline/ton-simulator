@@ -4,18 +4,20 @@
     type="button"
     data-bs-toggle="dropdown"
     aria-expanded="false"
+    [disabled]="disabled"
+    [attr.aria-label]="ariaLabel"
   >
-    <span class="text-truncate">{{ selectedPlan?.title }}</span>
+    <span class="text-truncate">{{ selectedLabel }}</span>
   </button>
   <ul class="dropdown-menu w-100 shadow">
-    <li *ngFor="let option of planOptions">
+    <li *ngFor="let option of options">
       <button
         type="button"
         class="dropdown-item"
-        [class.active]="option.id === selectedPlan?.id"
+        [class.active]="option.value === selected"
         (click)="onSelect(option)"
       >
-        {{ option.title }}
+        {{ option.label }}
       </button>
     </li>
   </ul>

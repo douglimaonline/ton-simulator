@@ -1,12 +1,13 @@
 <header class="app-header">
   <div
-    class="container-lg px-2 px-sm-3 py-2 d-flex align-items-center justify-content-between gap-2"
+    class="container-lg px-2 px-sm-3 py-2 d-flex align-items-center justify-content-between gap-2 header-inner"
   >
-    <div class="d-flex align-items-center gap-2 flex-shrink-0">
+    <div class="d-flex align-items-center gap-2 flex-shrink-0 brand">
       <img src="ton-stone.svg" alt="Ton Simulator" />
-      <h1 class="h5 fw-bold mb-0 d-none d-sm-block">Ton Simulator</h1>
+      <h1 class="h5 fw-bold mb-0">Ton Simulator</h1>
     </div>
 
+    <!-- Desktop: abas ao lado do logo; celular/tablet: abaixo do logo (ver CSS) -->
     <nav class="nav app-tabs" role="tablist" aria-label="Seções">
       <button
         type="button"
@@ -34,14 +35,15 @@
   </div>
 </header>
 
-<div class="container-lg px-2 px-sm-3 py-2 py-md-4">
+<div class="container-lg px-2 px-sm-3 py-2 py-md-4 app-content">
   <section
     id="tab-calculator"
     role="tabpanel"
+    class="tab-panel"
     [class.d-none]="activeTab !== 'calculator'"
   >
     <!-- Celular/tablet: card único, cabe inteiro em um print -->
-    <div class="d-lg-none">
+    <div class="d-lg-none mobile-calc">
       <app-compact-card [planOptions]="planOptions$ | async"></app-compact-card>
     </div>
 

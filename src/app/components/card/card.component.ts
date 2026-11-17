@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { PlanSelectorComponent } from '../plan-selector/plan-selector.component';
 import { TableComponent } from '../table/table.component';
 import { FormsModule } from '@angular/forms';
 import { Plan } from '../../models/plan.model';
@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-card',
   standalone: true,
   imports: [
-    DropdownComponent,
+    PlanSelectorComponent,
     TableComponent,
     FormsModule,
     NgxCurrencyDirective,

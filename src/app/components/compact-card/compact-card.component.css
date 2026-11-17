@@ -1,3 +1,25 @@
+/* Ocupa toda a altura disponível na tela do celular */
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.compact-card {
+  flex: 1 1 auto;
+}
+
+.compact-card > .card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Legenda encostada no fim do card */
+.compact-legend {
+  margin-top: auto !important;
+  padding-top: 0.5rem;
+}
+
 .compact-table {
   font-size: 0.8125rem;
 }

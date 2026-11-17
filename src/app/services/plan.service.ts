@@ -20,11 +20,12 @@ export class PlanService {
     const planRef = doc(db, 'Plans', plan.id.toString()); // 'Plans' for production, 'Plans test' for testing
 
     try {
-      await setDoc(planRef, {
-        id: plan.id,
-        title: plan.title,
-        fees: plan.fees,
-      });
+      // merge: preserva campos que não são editados aqui (family, range, settlement).
+      await setDoc(
+        planRef,
+        { id: plan.id, title: plan.title, fees: plan.fees },
+        { merge: true }
+      );
 
       return {
         success: true,
@@ -47,7 +48,13 @@ export class PlanService {
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();
-      plans.push(new Plan(data['id'], data['title'], data['fees']));
+      plans.push(
+        new Plan(data['id'], data['title'], data['fees'], {
+          family: data['family'],
+          range: data['range'],
+          settlement: data['settlement'],
+        })
+      );
     });
 
     return plans.sort((a, b) => a.id - b.id);

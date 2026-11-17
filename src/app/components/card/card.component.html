@@ -17,15 +17,14 @@
 
   <div class="card-body px-3 pt-3 pb-2">
     <div class="row g-2 mb-3">
-      <div class="col-12 col-sm-6">
-        <label class="form-label small text-body-secondary mb-1">Plano</label>
-        <app-dropdown
+      <div class="col-12">
+        <app-plan-selector
           [selectedPlan]="selectedPlan"
           [planOptions]="planOptions"
           (planChanged)="planChanged($event)"
-        ></app-dropdown>
+        ></app-plan-selector>
       </div>
-      <div class="col-12 col-sm-6">
+      <div class="col-12">
         <label
           class="form-label small text-body-secondary mb-1"
           [attr.for]="inputId"

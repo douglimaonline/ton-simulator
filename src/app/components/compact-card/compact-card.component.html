@@ -1,18 +1,17 @@
 <div
   *ngIf="planOptions && planOptions.length > 0"
-  class="card app-card shadow-sm"
+  class="card app-card compact-card shadow-sm"
 >
   <div class="card-body p-2">
     <div class="row g-2 mb-2">
-      <div class="col-6">
-        <label class="form-label small text-body-secondary mb-1">Plano</label>
-        <app-dropdown
+      <div class="col-12">
+        <app-plan-selector
           [selectedPlan]="selectedPlan"
           [planOptions]="planOptions"
           (planChanged)="planChanged($event)"
-        ></app-dropdown>
+        ></app-plan-selector>
       </div>
-      <div class="col-6">
+      <div class="col-12">
         <label
           class="form-label small text-body-secondary mb-1"
           for="base-value-compact"

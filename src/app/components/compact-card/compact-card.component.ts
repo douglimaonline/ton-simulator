@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { debounceTime, Subject, Subscription } from 'rxjs';
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { PlanSelectorComponent } from '../plan-selector/plan-selector.component';
 import { Plan } from '../../models/plan.model';
 import { InterestCalculator } from '../../models/InterestCalculator.model';
 import { InterestCalculatorService } from '../../InterestCalculatorService';
 
 /** Parcelas exibidas no resumo (antes de "Ver todas as parcelas"). */
-const SUMMARY_INSTALLMENTS = [2, 5, 8, 10, 12, 21];
+const SUMMARY_INSTALLMENTS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 18, 21];
 
 interface CompactRow {
   index: number;
@@ -25,7 +25,7 @@ interface CompactRow {
 @Component({
   selector: 'app-compact-card',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgxCurrencyDirective, DropdownComponent],
+  imports: [CommonModule, FormsModule, NgxCurrencyDirective, PlanSelectorComponent],
   templateUrl: './compact-card.component.html',
   styleUrl: './compact-card.component.css',
 })
