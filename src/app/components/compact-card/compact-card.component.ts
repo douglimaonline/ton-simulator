@@ -8,6 +8,9 @@ import { Plan } from '../../models/plan.model';
 import { InterestCalculator } from '../../models/InterestCalculator.model';
 import { InterestCalculatorService } from '../../InterestCalculatorService';
 
+/** Parcelas exibidas no resumo (antes de "Ver todas as parcelas"). */
+const SUMMARY_INSTALLMENTS = [2, 5, 8, 10, 12, 21];
+
 interface CompactRow {
   index: number;
   rate: number;
@@ -31,6 +34,7 @@ export class CompactCardComponent implements OnInit, OnDestroy, OnChanges {
   baseValue: number = 3000;
   selectedPlan?: Plan;
   rows: CompactRow[] = [];
+  showAll = false;
   private readonly inputSubject = new Subject<number>();
   private subs = new Subscription();
 
@@ -77,6 +81,20 @@ export class CompactCardComponent implements OnInit, OnDestroy, OnChanges {
 
   selectAll(event: MouseEvent): void {
     (event.target as HTMLInputElement).select();
+  }
+
+  /** Débito e à vista (parte de cima do resumo). */
+  get upfrontRows(): CompactRow[] {
+    return this.rows.filter((r) => r.index === 0 || r.index === 1);
+  }
+
+  /** Crédito parcelado no resumo: apenas 2x, 5x, 8x, 10x, 12x e 21x. */
+  get installmentRows(): CompactRow[] {
+    return this.rows.filter((r) => SUMMARY_INSTALLMENTS.includes(r.index));
+  }
+
+  toggleShowAll(): void {
+    this.showAll = !this.showAll;
   }
 
   label(index: number): string {

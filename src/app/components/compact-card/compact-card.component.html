@@ -48,21 +48,91 @@
           <th scope="col" class="text-end">Cobrar</th>
         </tr>
       </thead>
-      <tbody>
+
+      <!-- Expandido: lista corrida com todas as modalidades, sem subgrupos -->
+      <tbody *ngIf="showAll; else grouped">
         <tr *ngFor="let row of rows">
-          <td class="text-nowrap">{{ label(row.index) }}</td>
-          <td class="text-end text-nowrap text-body-secondary">
-            {{ row.rate.toFixed(2).replace(".", ",") }}%
-          </td>
-          <td class="text-end text-nowrap fw-semibold">
-            {{ row.receive | currency : "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
-          </td>
-          <td class="text-end text-nowrap fw-semibold">
-            {{ row.charge | currency : "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
-          </td>
+          <ng-container
+            *ngTemplateOutlet="cells; context: { $implicit: row }"
+          ></ng-container>
         </tr>
       </tbody>
+
+      <!-- Resumo: subgrupos com débito/à vista e parcelado 10x e 12x -->
+      <ng-template #grouped>
+      <ng-container *ngIf="upfrontRows.length">
+        <tbody class="group-header">
+          <tr>
+            <th scope="colgroup" colspan="4">Débito e crédito à vista</th>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr *ngFor="let row of upfrontRows">
+            <ng-container
+              *ngTemplateOutlet="cells; context: { $implicit: row }"
+            ></ng-container>
+          </tr>
+        </tbody>
+      </ng-container>
+
+      <ng-container *ngIf="installmentRows.length">
+        <tbody class="group-header">
+          <tr class="group-gap" aria-hidden="true">
+            <td colspan="4"></td>
+          </tr>
+          <tr>
+            <th scope="colgroup" colspan="4">Crédito parcelado</th>
+          </tr>
+        </tbody>
+        <tbody class="installments-group">
+          <tr *ngFor="let row of installmentRows">
+            <ng-container
+              *ngTemplateOutlet="cells; context: { $implicit: row }"
+            ></ng-container>
+          </tr>
+        </tbody>
+      </ng-container>
+      </ng-template>
     </table>
+
+    <ng-template #cells let-row>
+      <td class="text-nowrap">{{ label(row.index) }}</td>
+      <td class="text-end text-nowrap text-body-secondary">
+        {{ row.rate.toFixed(2).replace(".", ",") }}%
+      </td>
+      <td class="text-end text-nowrap fw-semibold">
+        {{ row.receive | currency : "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
+      </td>
+      <td class="text-end text-nowrap fw-semibold">
+        {{ row.charge | currency : "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
+      </td>
+    </ng-template>
+
+    <button
+      type="button"
+      class="btn btn-link btn-sm show-all-toggle"
+      [attr.aria-expanded]="showAll"
+      (click)="toggleShowAll()"
+    >
+      {{ showAll ? "Ver menos" : "Ver todas as parcelas" }}
+      <svg
+        class="chevron"
+        [class.open]="showAll"
+        width="12"
+        height="12"
+        viewBox="0 0 16 16"
+        aria-hidden="true"
+      >
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.5 6l4.5 4.5L12.5 6"
+        />
+      </svg>
+    </button>
 
     <p class="compact-legend text-body-secondary mb-0 mt-2 px-1">
       <strong>Receber:</strong> você assume as taxas ·

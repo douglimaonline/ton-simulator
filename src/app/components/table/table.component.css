@@ -1,0 +1,59 @@
+/* Sombreamento leve que separa as modalidades parceladas do resumo */
+.installments-group > tr > * {
+  --bs-table-bg: var(--bs-tertiary-bg);
+}
+
+/*
+ * Título de cada subgrupo: faixa de seção com cor de destaque, sem zebra,
+ * para não ser confundido com uma linha de modalidade.
+ */
+.table > tbody.group-header > tr > th {
+  --bs-table-bg: color-mix(in srgb, var(--app-accent) 14%, var(--bs-body-bg));
+  --bs-table-bg-type: transparent;
+  --bs-table-bg-state: transparent;
+  --bs-table-color: color-mix(in srgb, var(--app-accent) 65%, var(--bs-body-color));
+  --bs-table-color-type: var(--bs-table-color);
+  --bs-table-color-state: var(--bs-table-color);
+  color: var(--bs-table-color);
+  padding: 0.4rem 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border-bottom: 0;
+  border-left: 3px solid var(--app-accent);
+}
+
+/* Respiro antes do segundo subgrupo */
+.table > tbody.group-header > tr.group-gap > td {
+  --bs-table-bg: transparent;
+  --bs-table-bg-type: transparent;
+  --bs-table-bg-state: transparent;
+  height: 0.75rem;
+  padding: 0;
+  border-bottom: 0;
+}
+
+.show-all-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0.25rem auto 0;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  --bs-btn-color: color-mix(in srgb, var(--app-accent) 65%, var(--bs-body-color));
+  --bs-btn-hover-color: var(--bs-btn-color);
+  --bs-btn-active-color: var(--bs-btn-color);
+}
+
+.show-all-toggle:hover,
+.show-all-toggle:focus-visible {
+  text-decoration: underline;
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}

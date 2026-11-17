@@ -1,3 +1,21 @@
+<ng-template #row let-interest>
+  <td class="text-nowrap">
+    {{
+      interest.index == 0
+        ? "Débito"
+        : interest.index == 1
+        ? "À vista"
+        : "Parcelado " + interest.index + "x"
+    }}
+  </td>
+  <td class="text-end text-nowrap text-body-secondary">
+    {{ interest.rate.toFixed(2).toString().replace(".", ",") }}%
+  </td>
+  <td class="text-end text-nowrap fw-semibold">
+    {{ interest.result | currency : "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
+  </td>
+</ng-template>
+
 <div class="table-responsive">
   <table class="table table-sm table-striped table-hover align-middle mb-0 tabular">
     <caption class="small text-body-secondary pb-0">
@@ -12,24 +30,72 @@
         </th>
       </tr>
     </thead>
-    <tbody>
+
+    <tbody *ngIf="showAll; else summary">
       <tr *ngFor="let interest of interestValue.interests">
-        <td class="text-nowrap">
-          {{
-            interest.index == 0
-              ? "Débito"
-              : interest.index == 1
-              ? "À vista"
-              : "Parcelado " + interest.index + "x"
-          }}
-        </td>
-        <td class="text-end text-nowrap text-body-secondary">
-          {{ interest.rate.toFixed(2).toString().replace(".", ",") }}%
-        </td>
-        <td class="text-end text-nowrap fw-semibold">
-          {{ interest.result | currency : "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
-        </td>
+        <ng-container
+          *ngTemplateOutlet="row; context: { $implicit: interest }"
+        ></ng-container>
       </tr>
     </tbody>
+
+    <!-- Resumo: subgrupos com débito/à vista e parcelado 10x e 12x -->
+    <ng-template #summary>
+      <ng-container *ngIf="upfrontInterests.length">
+        <tbody class="group-header">
+          <tr>
+            <th scope="colgroup" colspan="3">Débito e crédito à vista</th>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr *ngFor="let interest of upfrontInterests">
+            <ng-container
+              *ngTemplateOutlet="row; context: { $implicit: interest }"
+            ></ng-container>
+          </tr>
+        </tbody>
+      </ng-container>
+      <tbody class="group-header" *ngIf="summaryInstallments.length">
+        <tr class="group-gap" aria-hidden="true">
+          <td colspan="3"></td>
+        </tr>
+        <tr>
+          <th scope="colgroup" colspan="3">Crédito parcelado</th>
+        </tr>
+      </tbody>
+      <tbody class="installments-group" *ngIf="summaryInstallments.length">
+        <tr *ngFor="let interest of summaryInstallments">
+          <ng-container
+            *ngTemplateOutlet="row; context: { $implicit: interest }"
+          ></ng-container>
+        </tr>
+      </tbody>
+    </ng-template>
   </table>
 </div>
+
+<button
+  type="button"
+  class="btn btn-link btn-sm show-all-toggle"
+  [attr.aria-expanded]="showAll"
+  (click)="toggleShowAll()"
+>
+  {{ showAll ? "Ver menos" : "Ver todas as parcelas" }}
+  <svg
+    class="chevron"
+    [class.open]="showAll"
+    width="12"
+    height="12"
+    viewBox="0 0 16 16"
+    aria-hidden="true"
+  >
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M3.5 6l4.5 4.5L12.5 6"
+    />
+  </svg>
+</button>
