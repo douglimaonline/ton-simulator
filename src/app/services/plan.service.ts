@@ -4,6 +4,9 @@ import { db } from '../firebase/config';
 import { Plan } from '../models/plan.model';
 import { from, Observable } from 'rxjs';
 
+/** 'Plans' para produção, 'Plans test' para testes. */
+const PLANS_COLLECTION = 'Plans';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +20,7 @@ export class PlanService {
   async editPlan(
     plan: Plan,
   ): Promise<{ success: boolean; plan?: string; message: string }> {
-    const planRef = doc(db, 'Plans', plan.id.toString()); // 'Plans' for production, 'Plans test' for testing
+    const planRef = doc(db, PLANS_COLLECTION, plan.id.toString());
 
     try {
       // merge: preserva campos que não são editados aqui (family, range, settlement).
@@ -43,7 +46,7 @@ export class PlanService {
 
   private async fetchPlans(): Promise<Plan[]> {
     const plans: Plan[] = [];
-    const q = query(collection(db, 'Plans')); // 'Plans' for production, 'Plans test' for testing
+    const q = query(collection(db, PLANS_COLLECTION));
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
@@ -52,7 +55,7 @@ export class PlanService {
         new Plan(data['id'], data['title'], data['fees'], {
           family: data['family'],
           range: data['range'],
-          settlement: data['settlement'],
+          settlement: data['settlement'] ?? null,
         })
       );
     });

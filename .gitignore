@@ -48,3 +48,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Snapshots locais gerados pelos scripts de planos
+backups/
