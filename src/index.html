@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-bs-theme="dark">
+<html lang="pt-BR" data-bs-theme="light">
   <head>
     <meta charset="utf-8" />
     <title>Ton Simulator</title>
     <base href="./" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content="Simulador de taxas e valores a receber ou cobrar por modalidade de pagamento." />
-    <meta name="theme-color" content="#212529" />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      // Aplica o tema salvo antes do app carregar (evita piscar o tema padrão)
+      try {
+        var t = localStorage.getItem('ton-simulator-theme-v2');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-bs-theme', t);
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', t === 'light' ? '#ffffff' : '#212529');
+        }
+      } catch (e) {}
+    </script>
     <link rel="icon" type="image/x-svg" href="ton-stone.svg" />
   </head>
   <body>
