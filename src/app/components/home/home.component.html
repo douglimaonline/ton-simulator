@@ -8,7 +8,7 @@
     </div>
 
     <!-- Desktop: abas ao lado do logo; celular/tablet: abaixo do logo (ver CSS) -->
-    <nav class="nav app-tabs" role="tablist" aria-label="Seções">
+    <nav class="nav app-tabs ms-lg-auto" role="tablist" aria-label="Seções">
       <button
         type="button"
         role="tab"
@@ -32,8 +32,14 @@
         Atualizar taxas
       </button>
     </nav>
+
+    <!-- Desktop: switch de tema no header -->
+    <app-theme-toggle class="d-none d-lg-inline-flex ms-2"></app-theme-toggle>
   </div>
 </header>
+
+<!-- Celular/tablet: switch de tema flutuante no canto inferior direito -->
+<app-theme-toggle class="d-lg-none" [floating]="true"></app-theme-toggle>
 
 <div class="container-lg px-2 px-sm-3 py-2 py-md-4 app-content">
   <section

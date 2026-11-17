@@ -6,11 +6,12 @@ import { Observable } from 'rxjs';
 import { PlanService } from '../../services/plan.service';
 import { AsyncPipe } from '@angular/common';
 import { CompactCardComponent } from '../compact-card/compact-card.component';
+import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CardComponent, CompactCardComponent, FeesFormComponent, AsyncPipe],
+  imports: [CardComponent, CompactCardComponent, FeesFormComponent, AsyncPipe, ThemeToggleComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

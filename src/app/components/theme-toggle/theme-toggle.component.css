@@ -1,0 +1,123 @@
+:host {
+  display: inline-flex;
+}
+
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: 999px;
+}
+
+.theme-switch:focus-visible {
+  outline: 2px solid var(--app-accent);
+  outline-offset: 3px;
+}
+
+.track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 3.5rem;
+  height: 1.875rem;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background-color: var(--app-surface-raised);
+  border: 1px solid var(--bs-border-color);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.icon {
+  position: relative;
+  z-index: 1;
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: none;
+  stroke: var(--bs-secondary-color);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.2s ease;
+}
+
+.thumb {
+  position: absolute;
+  top: 50%;
+  left: 0.2rem;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 50%;
+  background-color: var(--app-accent);
+  transform: translate(0, -50%);
+  transition: transform 0.25s ease;
+}
+
+/* Escuro: polegar sobre a lua; claro: sobre o sol */
+.theme-switch:not(.is-light) .icon-moon,
+.theme-switch.is-light .icon-sun {
+  stroke: var(--app-accent-contrast);
+}
+
+.theme-switch.is-light .thumb {
+  transform: translate(calc(1.65rem - 2px), -50%);
+}
+
+/* Versão flutuante (celular) */
+.theme-switch.floating {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 1040;
+  /* Translúcido em repouso; fica opaco ao tocar/focar */
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+@media (hover: hover) {
+  .theme-switch.floating:hover {
+    opacity: 1;
+  }
+}
+
+.theme-switch.floating:active,
+.theme-switch.floating:focus-visible {
+  opacity: 1;
+}
+
+.theme-switch.floating .track {
+  width: 4rem;
+  height: 2.25rem;
+  padding: 0 0.55rem;
+  /* Translúcido com desfoque: o conteúdo atrás continua visível */
+  background-color: color-mix(in srgb, var(--bs-secondary-bg) 35%, transparent);
+  border-color: var(--bs-border-color);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.theme-switch.floating .thumb {
+  left: 0.25rem;
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.theme-switch.floating.is-light .thumb {
+  transform: translate(calc(1.75rem - 2px), -50%);
+}
+
+.theme-switch.floating .icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thumb,
+  .track,
+  .icon {
+    transition: none;
+  }
+}
