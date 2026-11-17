@@ -26,7 +26,7 @@ export class ThemeService {
     try {
       localStorage.setItem(STORAGE_KEY, theme);
     } catch {
-      /* armazenamento indisponível: mantém só na sessão */
+      /* storage unavailable: keep it for this session only */
     }
   }
 
@@ -35,7 +35,7 @@ export class ThemeService {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved === 'light' || saved === 'dark') return saved;
     } catch {
-      /* ignora */
+      /* ignore */
     }
     return 'light';
   }

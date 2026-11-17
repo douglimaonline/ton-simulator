@@ -56,7 +56,7 @@
   transition: transform 0.25s ease;
 }
 
-/* Escuro: polegar sobre a lua; claro: sobre o sol */
+/* Dark: thumb over the moon; light: over the sun */
 .theme-switch:not(.is-light) .icon-moon,
 .theme-switch.is-light .icon-sun {
   stroke: var(--app-accent-contrast);
@@ -66,13 +66,13 @@
   transform: translate(calc(1.65rem - 2px), -50%);
 }
 
-/* Versão flutuante (celular) */
+/* Floating version (mobile) */
 .theme-switch.floating {
   position: fixed;
   right: max(1rem, env(safe-area-inset-right));
   bottom: max(1rem, env(safe-area-inset-bottom));
   z-index: 1040;
-  /* Translúcido em repouso; fica opaco ao tocar/focar */
+  /* Translucent at rest; becomes opaque on tap/focus */
   opacity: 0.6;
   transition: opacity 0.2s ease;
 }
@@ -92,7 +92,7 @@
   width: 4rem;
   height: 2.25rem;
   padding: 0 0.55rem;
-  /* Translúcido com desfoque: o conteúdo atrás continua visível */
+  /* Translucent with blur: the content behind stays visible */
   background-color: color-mix(in srgb, var(--bs-secondary-bg) 35%, transparent);
   border-color: var(--bs-border-color);
   -webkit-backdrop-filter: blur(6px);

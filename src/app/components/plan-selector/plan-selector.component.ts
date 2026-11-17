@@ -10,16 +10,16 @@ import { DropdownComponent, DropdownOption } from '../dropdown/dropdown.componen
 import { Plan } from '../../models/plan.model';
 import { PlanCatalog } from '../../models/plan-catalog';
 
-/** Rótulos exibidos para os valores de `settlement` do banco. */
+/** Labels shown for the database `settlement` values. */
 const SETTLEMENT_LABELS: Record<string, string> = {
   'Mesmo dia': 'Na hora',
 };
 
 /**
- * Seleção de plano em três dropdowns: plano (`family`), faixa de faturamento
- * (`range`) e recebimento (`settlement`). Cada um só oferece opções que
- * existem no banco para as escolhas anteriores. Planos sem recebimento
- * (promocionais) deixam o dropdown de recebimento desabilitado.
+ * Plan selection with three dropdowns: plan (`family`), billing range
+ * (`range`) and settlement (`settlement`). Each one only offers options that
+ * exist in the database for the previous choices. Plans without a settlement
+ * (promotional plans) leave the settlement dropdown disabled.
  */
 @Component({
   selector: 'app-plan-selector',
@@ -42,8 +42,8 @@ export class PlanSelectorComponent implements OnChanges {
   settlementOptions: DropdownOption<string>[] = [];
 
   /**
-   * Último recebimento escolhido. Mantido ao passar por um plano sem
-   * recebimento (promocional), para ser reaplicado na próxima troca.
+   * Last chosen settlement. Kept while a plan without a settlement
+   * (promotional) is selected, so it can be applied again on the next change.
    */
   private preferredSettlement: string | null = null;
 

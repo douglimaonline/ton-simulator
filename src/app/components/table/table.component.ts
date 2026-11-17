@@ -11,7 +11,7 @@ import { InstallmentsViewService } from '../../services/installments-view.servic
 
 registerLocaleData(localePt, 'pt-BR');
 
-/** Modalidades exibidas no resumo (antes de "Ver todas as parcelas"). */
+/** Payment types shown in the summary (before "Ver todas as parcelas"). */
 const SUMMARY_UPFRONT = [0, 1];
 const SUMMARY_INSTALLMENTS = [2, 12, 21];
 
@@ -32,7 +32,7 @@ export class TableComponent {
 
   constructor(private readonly installmentsView: InstallmentsViewService) {}
 
-  /** Compartilhado entre os cards: expandir um expande todos. */
+  /** Shared across the cards: expanding one expands all of them. */
   get showAll(): boolean {
     return this.installmentsView.showAll();
   }

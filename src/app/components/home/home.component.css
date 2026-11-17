@@ -1,7 +1,7 @@
 /*
- * Celular/tablet (abaixo de lg, mesmo ponto em que entra o card compacto):
- * logo maior com as abas logo abaixo, e conteúdo ocupando a altura da tela.
- * Desktop (lg+) fica como estava.
+ * Mobile/tablet (below lg, the same breakpoint where the compact card is used):
+ * larger logo with the tabs right below it, and content filling the screen
+ * height. Desktop (lg+) keeps the original layout.
  */
 @media (max-width: 991.98px) {
   :host {
@@ -56,8 +56,8 @@
   }
 }
 
-/* Link "voltar ao topo" (celular/tablet) — canto inferior esquerdo,
-   oposto ao switch de tema flutuante */
+/* "Voltar ao topo" (back to top) link (mobile/tablet) — bottom-left corner,
+   opposite the floating theme switch */
 .back-to-top {
   position: fixed;
   left: max(1rem, env(safe-area-inset-left));

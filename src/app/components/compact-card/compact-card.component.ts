@@ -8,7 +8,7 @@ import { Plan } from '../../models/plan.model';
 import { InterestCalculator } from '../../models/InterestCalculator.model';
 import { InterestCalculatorService } from '../../InterestCalculatorService';
 
-/** Parcelas exibidas no resumo (antes de "Ver todas as parcelas"). */
+/** Installments shown in the summary (before "Ver todas as parcelas"). */
 const SUMMARY_INSTALLMENTS = [2, 5, 8, 10, 12, 18, 21];
 
 interface CompactRow {
@@ -19,8 +19,8 @@ interface CompactRow {
 }
 
 /**
- * Versão mobile da calculadora: um único card com "a receber" e "a cobrar"
- * na mesma tabela, para caber inteira em um print de tela.
+ * Mobile version of the calculator: a single card with "a receber" (to receive)
+ * and "a cobrar" (to charge) in the same table, so it fits in one screenshot.
  */
 @Component({
   selector: 'app-compact-card',
@@ -83,12 +83,12 @@ export class CompactCardComponent implements OnInit, OnDestroy, OnChanges {
     (event.target as HTMLInputElement).select();
   }
 
-  /** Débito e à vista (parte de cima do resumo). */
+  /** Debit and single-payment credit (top part of the summary). */
   get upfrontRows(): CompactRow[] {
     return this.rows.filter((r) => r.index === 0 || r.index === 1);
   }
 
-  /** Crédito parcelado no resumo: apenas 2x, 5x, 8x, 10x, 12x e 21x. */
+  /** Installment credit in the summary: only 2x, 5x, 8x, 10x, 12x, 18x and 21x. */
   get installmentRows(): CompactRow[] {
     return this.rows.filter((r) => SUMMARY_INSTALLMENTS.includes(r.index));
   }

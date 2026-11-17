@@ -23,12 +23,12 @@ export class HomeComponent {
     this.planOptions$ = this.planService.getPlans();
   }
 
-  /** Exibe o link "voltar ao topo" quando o usuário chega ao fim da página. */
+  /** Shows the "voltar ao topo" (back to top) link when the user reaches the end of the page. */
   showBackToTop = false;
 
   selectTab(tab: 'calculator' | 'fees'): void {
     this.activeTab = tab;
-    // A altura da página muda ao trocar de aba
+    // The page height changes when switching tabs
     setTimeout(() => this.updateBackToTop());
   }
 

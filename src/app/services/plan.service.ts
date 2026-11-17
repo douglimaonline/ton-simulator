@@ -4,7 +4,7 @@ import { db } from '../firebase/config';
 import { Plan } from '../models/plan.model';
 import { from, Observable } from 'rxjs';
 
-/** 'Plans' para produção, 'Plans test' para testes. */
+/** 'Plans' for production, 'Plans test' for testing. */
 const PLANS_COLLECTION = 'Plans';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class PlanService {
     const planRef = doc(db, PLANS_COLLECTION, plan.id.toString());
 
     try {
-      // merge: preserva campos que não são editados aqui (family, range, settlement).
+      // merge: keeps fields that are not edited here (family, range, settlement).
       await setDoc(
         planRef,
         { id: plan.id, title: plan.title, fees: plan.fees },

@@ -1,12 +1,12 @@
 import { Plan } from './plan.model';
 
 /**
- * Índice dos planos pelos campos `family`, `range` e `settlement` vindos do
- * banco, para alimentar os dropdowns.
+ * Index of plans by their `family`, `range` and `settlement` fields from the
+ * database, used to populate the dropdowns.
  *
- * As opções seguem a ordem dos planos recebidos (por `id`): cada família,
- * faixa ou recebimento aparece na posição do primeiro plano em que ocorre.
- * Para mudar a ordem nos dropdowns, basta mudar a ordem dos ids no banco.
+ * Options follow the order of the given plans (by `id`): each family, range
+ * or settlement appears at the position of the first plan that has it.
+ * To change the dropdown order, change the order of the ids in the database.
  */
 export class PlanCatalog {
   constructor(private readonly plans: Plan[]) {}
@@ -30,8 +30,9 @@ export class PlanCatalog {
   }
 
   /**
-   * Plano que melhor atende à combinação: exata se existir; senão mantém
-   * plano + faixa (ou só o plano) e pega a primeira opção disponível.
+   * Plan that best matches the combination: the exact one if it exists;
+   * otherwise keeps family + range (or just the family) and takes the first
+   * available option.
    */
   find(
     family: string,

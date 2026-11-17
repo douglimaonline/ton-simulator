@@ -7,7 +7,7 @@
       <h1 class="h5 fw-bold mb-0">Ton Simulator</h1>
     </div>
 
-    <!-- Desktop: abas ao lado do logo; celular/tablet: abaixo do logo (ver CSS) -->
+    <!-- Desktop: tabs next to the logo; mobile/tablet: below the logo (see CSS) -->
     <nav class="nav app-tabs ms-lg-auto" role="tablist" aria-label="Seções">
       <button
         type="button"
@@ -33,15 +33,15 @@
       </button>
     </nav>
 
-    <!-- Desktop: switch de tema no header -->
+    <!-- Desktop: theme switch in the header -->
     <app-theme-toggle class="d-none d-lg-inline-flex ms-2"></app-theme-toggle>
   </div>
 </header>
 
-<!-- Celular/tablet: switch de tema flutuante no canto inferior direito -->
+<!-- Mobile/tablet: floating theme switch in the bottom-right corner -->
 <app-theme-toggle class="d-lg-none" [floating]="true"></app-theme-toggle>
 
-<!-- Celular/tablet: link "voltar ao topo", aparece ao chegar no fim da página -->
+<!-- Mobile/tablet: "voltar ao topo" (back to top) link, shown at the end of the page -->
 <a
   href="#"
   class="back-to-top d-lg-none"
@@ -65,12 +65,12 @@
     class="tab-panel"
     [class.d-none]="activeTab !== 'calculator'"
   >
-    <!-- Celular/tablet: card único, cabe inteiro em um print -->
+    <!-- Mobile/tablet: single card that fits in one screenshot -->
     <div class="d-lg-none mobile-calc">
       <app-compact-card [planOptions]="planOptions$ | async"></app-compact-card>
     </div>
 
-    <!-- Desktop: dois cards lado a lado -->
+    <!-- Desktop: two cards side by side -->
     <div class="d-none d-lg-flex row row-cols-2 g-4">
       <div class="col">
         <app-card

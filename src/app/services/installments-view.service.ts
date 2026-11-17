@@ -1,8 +1,8 @@
 import { Injectable, signal } from '@angular/core';
 
 /**
- * Estado compartilhado de "Ver todas as parcelas" entre os cards do desktop:
- * expandir em um card expande todos.
+ * Shared "Ver todas as parcelas" (show all installments) state across the
+ * desktop cards: expanding one card expands all of them.
  */
 @Injectable({ providedIn: 'root' })
 export class InstallmentsViewService {

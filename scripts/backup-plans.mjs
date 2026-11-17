@@ -1,19 +1,20 @@
 /**
- * Atualiza o backup da coleção "Plans" na coleção "Plans Backup" do Firestore.
+ * Updates the backup of the "Plans" collection in the "Plans Backup"
+ * Firestore collection.
  *
- * Cópia exata: cada documento da origem é gravado no destino com o mesmo ID e
- * o mesmo conteúdo (sem renumerar ids), e documentos que existem apenas no
- * destino são apagados. Ao final, o destino fica idêntico à origem.
- * A origem só é lida, nunca alterada.
+ * Exact copy: each source document is written to the target with the same ID
+ * and the same content (ids are not renumbered), and documents that exist
+ * only in the target are deleted. Afterwards the target matches the source.
+ * The source is only read, never modified.
  *
- * Antes de gravar, o conteúdo atual do destino é salvo em
- * backups/<destino>-<timestamp>.json.
+ * Before writing, the current target content is saved to
+ * backups/<target>-<timestamp>.json.
  *
- * Uso:
- *   node --env-file=.env scripts/backup-plans.mjs              # atualiza o backup
- *   node --env-file=.env scripts/backup-plans.mjs --dry-run    # só mostra o que faria
+ * Usage:
+ *   node --env-file=.env scripts/backup-plans.mjs              # update the backup
+ *   node --env-file=.env scripts/backup-plans.mjs --dry-run    # only show what would change
  *
- * Origem/destino podem ser trocados (padrão: Plans -> Plans Backup):
+ * Source/target can be changed (default: Plans -> Plans Backup):
  *   node --env-file=.env scripts/backup-plans.mjs --from="Plans test" --to=Plans
  */
 import { initializeApp } from 'firebase/app';
@@ -30,9 +31,9 @@ const arg = (name) =>
   process.argv.find((a) => a.startsWith(`--${name}=`))?.slice(name.length + 3);
 const SOURCE = arg('from') ?? 'Plans';
 const TARGET = arg('to') ?? 'Plans Backup';
-if (SOURCE === TARGET) throw new Error('Origem e destino iguais.');
+if (SOURCE === TARGET) throw new Error('Source and target are the same.');
 const DRY_RUN = process.argv.includes('--dry-run');
-/** Limite do Firestore é 500 operações por batch. */
+/** Firestore allows at most 500 operations per batch. */
 const BATCH_LIMIT = 400;
 
 const env = process.env;
@@ -52,13 +53,13 @@ const [src, dst] = await Promise.all([
 ]);
 
 if (src.empty) {
-  console.error(`"${SOURCE}" está vazia — backup não atualizado.`);
+  console.error(`"${SOURCE}" is empty — backup not updated.`);
   process.exit(1);
 }
 
 const srcIds = new Set(src.docs.map((d) => d.id));
 const dstById = new Map(dst.docs.map((d) => [d.id, d.data()]));
-/** JSON com chaves ordenadas: o Firestore não garante a ordem dos campos. */
+/** JSON with sorted keys: Firestore does not guarantee field order. */
 const stable = (v) =>
   JSON.stringify(v, (_, x) =>
     x && typeof x === 'object' && !Array.isArray(x)
@@ -76,23 +77,23 @@ for (const d of [...src.docs].sort(byId)) {
     unchanged++;
     continue;
   }
-  ops.push({ type: old ? 'atualizar' : 'criar', id: d.id, data: d.data() });
+  ops.push({ type: old ? 'update' : 'create', id: d.id, data: d.data() });
 }
 for (const id of dstById.keys())
-  if (!srcIds.has(id)) ops.push({ type: 'apagar', id });
+  if (!srcIds.has(id)) ops.push({ type: 'delete', id });
 
 const count = (t) => ops.filter((o) => o.type === t).length;
 console.log(
   `"${SOURCE}" (${src.size} docs) -> "${TARGET}" (${dst.size} docs)${DRY_RUN ? ' — dry-run' : ''}`
 );
 console.log(
-  `criar: ${count('criar')} | atualizar: ${count('atualizar')} | apagar: ${count('apagar')} | sem mudança: ${unchanged}`
+  `create: ${count('create')} | update: ${count('update')} | delete: ${count('delete')} | unchanged: ${unchanged}`
 );
 for (const o of ops)
   console.log(`  ${o.type.padEnd(9)} ${o.id}${o.data ? `  ${o.data.title}` : ''}`);
 
 if (DRY_RUN || ops.length === 0) {
-  console.log(ops.length === 0 ? 'Backup já está atualizado.' : 'Nada gravado (dry-run).');
+  console.log(ops.length === 0 ? 'Target is already up to date.' : 'Nothing written (dry-run).');
   process.exit(0);
 }
 
@@ -102,17 +103,17 @@ if (dst.size > 0) {
     .toISOString()
     .replace(/[:.]/g, '-')}.json`;
   writeFileSync(file, JSON.stringify(Object.fromEntries(dstById), null, 2));
-  console.log(`Conteúdo anterior de "${TARGET}" salvo em ${file}`);
+  console.log(`Previous content of "${TARGET}" saved to ${file}`);
 }
 
 for (let i = 0; i < ops.length; i += BATCH_LIMIT) {
   const batch = writeBatch(db);
   for (const o of ops.slice(i, i + BATCH_LIMIT)) {
     const ref = doc(db, TARGET, o.id);
-    if (o.type === 'apagar') batch.delete(ref);
+    if (o.type === 'delete') batch.delete(ref);
     else batch.set(ref, o.data);
   }
   await batch.commit();
 }
-console.log('Backup atualizado.');
+console.log(`"${TARGET}" updated.`);
 process.exit(0);
