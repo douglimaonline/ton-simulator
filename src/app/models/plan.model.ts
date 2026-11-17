@@ -2,18 +2,15 @@ export class Plan {
   id: number;
   title: string;
   fees: number[];
-  /** Família do plano, ex.: "Ton Mega+", "Ton Top", "Super Mega". */
-  family?: string;
-  /** Faixa de faturamento, ex.: "Até 3k", "3k a 6k", "Acima de 30k", "Promocional". */
-  range?: string;
-  /** Prazo de recebimento, ex.: "Mesmo dia", "1 dia útil"; `null` se não se aplica. */
-  settlement?: string | null;
+  family: string;
+  range: string;
+  settlement: string | null;
 
   constructor(
     id: number,
     title: string,
     fees: number[],
-    facets: Pick<Plan, 'family' | 'range' | 'settlement'> = {}
+    facets: Pick<Plan, 'family' | 'range' | 'settlement'>
   ) {
     this.id = id;
     this.title = title;

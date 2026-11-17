@@ -17,4 +17,14 @@
       (selectedChange)="onRange($event)"
     ></app-dropdown>
   </div>
+  <div class="plan-selector-field">
+    <label class="form-label small text-body-secondary mb-1">Recebimento</label>
+    <app-dropdown
+      ariaLabel="Recebimento"
+      [options]="settlementOptions"
+      [selected]="settlement ?? undefined"
+      [disabled]="settlementOptions.length === 0"
+      (selectedChange)="onSettlement($event)"
+    ></app-dropdown>
+  </div>
 </div>

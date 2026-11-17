@@ -1,4 +1,4 @@
-/* Estilos globais — carregados depois do Bootstrap (ver angular.json) */
+/* Global styles — loaded after Bootstrap (see angular.json) */
 
 :root {
   --app-accent: #00c26e;
@@ -16,7 +16,7 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Botão de destaque da aplicação */
+/* App primary button */
 .btn-accent {
   --bs-btn-color: var(--app-accent-contrast);
   --bs-btn-bg: var(--app-accent);
@@ -30,7 +30,7 @@ body {
   font-weight: 600;
 }
 
-/* Cabeçalho */
+/* Header */
 .app-header {
   position: sticky;
   top: 0;
@@ -45,7 +45,7 @@ body {
   height: 28px;
 }
 
-/* Abas (segmented control) */
+/* Tabs (segmented control) */
 .app-tabs {
   display: flex;
   gap: 0.25rem;
@@ -89,12 +89,12 @@ body {
   color: var(--app-accent);
 }
 
-/* Números alinhados em tabelas e campos */
+/* Aligned numbers in tables and inputs */
 .tabular {
   font-variant-numeric: tabular-nums;
 }
 
-/* Dropdown de planos com área de toque confortável */
+/* Plan dropdown with a comfortable touch target */
 .app-dropdown .dropdown-toggle {
   display: flex;
   align-items: center;
@@ -117,13 +117,13 @@ body {
   color: var(--app-accent-contrast);
 }
 
-/* Foco visível nos campos */
+/* Visible focus on inputs */
 .form-control:focus {
   border-color: var(--app-accent);
   box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--app-accent) 30%, transparent);
 }
 
-/* Evita zoom automático do iOS em inputs (fonte >= 16px) */
+/* Prevents iOS auto-zoom on inputs (font >= 16px) */
 @media (max-width: 575.98px) {
   input.form-control,
   input.form-control-sm {

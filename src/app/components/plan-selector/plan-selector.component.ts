@@ -8,13 +8,18 @@ import {
 } from '@angular/core';
 import { DropdownComponent, DropdownOption } from '../dropdown/dropdown.component';
 import { Plan } from '../../models/plan.model';
-import { PlanCatalog } from '../../models/plan-facets';
+import { PlanCatalog } from '../../models/plan-catalog';
+
+/** Labels shown for the database `settlement` values. */
+const SETTLEMENT_LABELS: Record<string, string> = {
+  'Mesmo dia': 'Na hora',
+};
 
 /**
- * Seleção de plano em dois dropdowns: plano (Ton Mega+, Ton Top, Super Mega)
- * e faixa de faturamento. As faixas dependem do plano escolhido, então só
- * combinações existentes no banco podem ser escolhidas. O recebimento não é
- * escolhido aqui: mantém o do plano atual quando a combinação existe.
+ * Plan selection with three dropdowns: plan (`family`), billing range
+ * (`range`) and settlement (`settlement`). Each one only offers options that
+ * exist in the database for the previous choices. Plans without a settlement
+ * (promotional plans) leave the settlement dropdown disabled.
  */
 @Component({
   selector: 'app-plan-selector',
@@ -34,6 +39,13 @@ export class PlanSelectorComponent implements OnChanges {
 
   familyOptions: DropdownOption<string>[] = [];
   rangeOptions: DropdownOption<string>[] = [];
+  settlementOptions: DropdownOption<string>[] = [];
+
+  /**
+   * Last chosen settlement. Kept while a plan without a settlement
+   * (promotional) is selected, so it can be applied again on the next change.
+   */
+  private preferredSettlement: string | null = null;
 
   private catalog = new PlanCatalog([]);
 
@@ -52,11 +64,15 @@ export class PlanSelectorComponent implements OnChanges {
   }
 
   onFamily(family: string): void {
-    this.select(family, this.range!, this.settlement ?? null);
+    this.select(family, this.range!, this.preferredSettlement);
   }
 
   onRange(range: string): void {
-    this.select(this.family!, range, this.settlement ?? null);
+    this.select(this.family!, range, this.preferredSettlement);
+  }
+
+  onSettlement(settlement: string): void {
+    this.select(this.family!, this.range!, settlement);
   }
 
   private select(family: string, range: string, settlement: string | null): void {
@@ -68,14 +84,18 @@ export class PlanSelectorComponent implements OnChanges {
   }
 
   private syncFrom(plan: Plan): void {
-    const facets = this.catalog.facetsOf(plan);
-    if (!facets) return;
-    this.family = facets.family;
-    this.range = facets.range;
-    this.settlement = facets.settlement;
+    this.family = plan.family;
+    this.range = plan.range;
+    this.settlement = plan.settlement;
+    if (plan.settlement !== null) this.preferredSettlement = plan.settlement;
 
     this.rangeOptions = this.catalog
-      .ranges(facets.family)
+      .ranges(plan.family)
       .map((r) => ({ value: r, label: r }));
+
+    this.settlementOptions = this.catalog
+      .settlements(plan.family, plan.range)
+      .filter((s): s is string => s !== null)
+      .map((s) => ({ value: s, label: SETTLEMENT_LABELS[s] ?? s }));
   }
 }

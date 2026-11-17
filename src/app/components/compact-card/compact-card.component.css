@@ -1,4 +1,4 @@
-/* Ocupa toda a altura disponível na tela do celular */
+/* Takes the full available height of the mobile screen */
 :host {
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@
   flex-direction: column;
 }
 
-/* Legenda encostada no fim do card */
+/* Caption pinned to the bottom of the card */
 .compact-legend {
   margin-top: auto !important;
   padding-top: 0.5rem;
@@ -33,14 +33,14 @@
   font-size: 0.75rem;
 }
 
-/* Sombreamento leve que separa as modalidades parceladas do resumo */
+/* Light shading that separates the installment rows in the summary */
 .installments-group > tr > * {
   --bs-table-bg: var(--bs-tertiary-bg);
 }
 
 /*
- * Título de cada subgrupo: faixa de seção com cor de destaque, sem zebra,
- * para não ser confundido com uma linha de modalidade.
+ * Title of each subgroup: section band with accent color and no zebra
+ * striping, so it is not mistaken for a payment type row.
  */
 .compact-table > tbody.group-header > tr > th {
   --bs-table-bg: color-mix(in srgb, var(--app-accent) 14%, var(--bs-body-bg));
@@ -56,7 +56,7 @@
   border-left: 3px solid var(--app-accent);
 }
 
-/* Respiro antes do segundo subgrupo */
+/* Spacing before the second subgroup */
 .compact-table > tbody.group-header > tr.group-gap > td {
   --bs-table-bg: transparent;
   --bs-table-bg-type: transparent;

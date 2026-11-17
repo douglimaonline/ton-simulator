@@ -48,7 +48,7 @@
         </tr>
       </thead>
 
-      <!-- Expandido: lista corrida com todas as modalidades, sem subgrupos -->
+      <!-- Expanded: flat list with all payment types, no subgroups -->
       <tbody *ngIf="showAll; else grouped">
         <tr *ngFor="let row of rows">
           <ng-container
@@ -57,7 +57,7 @@
         </tr>
       </tbody>
 
-      <!-- Resumo: subgrupos com débito/à vista e parcelado 10x e 12x -->
+      <!-- Summary: subgroups with debit/single payment and installments 2x, 5x, 8x, 10x, 12x, 18x and 21x -->
       <ng-template #grouped>
       <ng-container *ngIf="upfrontRows.length">
         <tbody class="group-header">

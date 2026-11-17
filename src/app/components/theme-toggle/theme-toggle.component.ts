@@ -8,7 +8,7 @@ import { ThemeService } from '../../services/theme.service';
   styleUrl: './theme-toggle.component.css',
 })
 export class ThemeToggleComponent {
-  /** Botão flutuante no canto inferior direito (uso no celular). */
+  /** Floating button in the bottom-right corner (used on mobile). */
   @Input() floating = false;
 
   readonly themeService = inject(ThemeService);
