@@ -9,7 +9,7 @@ import { InterestCalculator } from '../../models/InterestCalculator.model';
 import { InterestCalculatorService } from '../../InterestCalculatorService';
 
 /** Parcelas exibidas no resumo (antes de "Ver todas as parcelas"). */
-const SUMMARY_INSTALLMENTS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 18, 21];
+const SUMMARY_INSTALLMENTS = [2, 5, 8, 10, 12, 18, 21];
 
 interface CompactRow {
   index: number;
