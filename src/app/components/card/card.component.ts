@@ -57,6 +57,7 @@ export class CardComponent implements OnInit, OnDestroy, OnChanges {
           ? interestValue.feesToCostumer()
           : interestValue;
         this.selectedPlan = interestValue.selectedPlan;
+        this.baseValue = interestValue.baseValue ?? this.baseValue;
       }
     );
   }

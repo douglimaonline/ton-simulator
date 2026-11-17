@@ -1,0 +1,72 @@
+<div
+  *ngIf="planOptions && planOptions.length > 0"
+  class="card app-card shadow-sm"
+>
+  <div class="card-body p-2">
+    <div class="row g-2 mb-2">
+      <div class="col-6">
+        <label class="form-label small text-body-secondary mb-1">Plano</label>
+        <app-dropdown
+          [selectedPlan]="selectedPlan"
+          [planOptions]="planOptions"
+          (planChanged)="planChanged($event)"
+        ></app-dropdown>
+      </div>
+      <div class="col-6">
+        <label
+          class="form-label small text-body-secondary mb-1"
+          for="base-value-compact"
+          >Valor da simulação</label
+        >
+        <input
+          id="base-value-compact"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          currencyMask
+          [currencyMask]="{
+            prefix: 'R$ ',
+            thousands: '.',
+            decimal: ',',
+            allowNegative: false,
+            precision: 2,
+            max: 999999.99
+          }"
+          [(ngModel)]="baseValue"
+          (ngModelChange)="onInputChange($event)"
+          (click)="selectAll($event)"
+          class="form-control fw-semibold tabular"
+        />
+      </div>
+    </div>
+
+    <table class="table table-sm table-striped align-middle mb-0 tabular compact-table">
+      <thead>
+        <tr class="text-body-secondary">
+          <th scope="col">Modalidade</th>
+          <th scope="col" class="text-end">Taxa</th>
+          <th scope="col" class="text-end">Receber</th>
+          <th scope="col" class="text-end">Cobrar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows">
+          <td class="text-nowrap">{{ label(row.index) }}</td>
+          <td class="text-end text-nowrap text-body-secondary">
+            {{ row.rate.toFixed(2).replace(".", ",") }}%
+          </td>
+          <td class="text-end text-nowrap fw-semibold">
+            {{ row.receive | currency : "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
+          </td>
+          <td class="text-end text-nowrap fw-semibold">
+            {{ row.charge | currency : "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="compact-legend text-body-secondary mb-0 mt-2 px-1">
+      <strong>Receber:</strong> você assume as taxas ·
+      <strong>Cobrar:</strong> taxas passadas ao cliente · Visa e Mastercard
+    </p>
+  </div>
+</div>

@@ -1,10 +1,10 @@
 <header class="app-header">
   <div
-    class="container-lg px-3 py-2 d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-between gap-2"
+    class="container-lg px-2 px-sm-3 py-2 d-flex align-items-center justify-content-between gap-2"
   >
-    <div class="d-flex align-items-center gap-2">
-      <img src="ton-stone.svg" alt="" />
-      <h1 class="h5 fw-bold mb-0">Ton Simulator</h1>
+    <div class="d-flex align-items-center gap-2 flex-shrink-0">
+      <img src="ton-stone.svg" alt="Ton Simulator" />
+      <h1 class="h5 fw-bold mb-0 d-none d-sm-block">Ton Simulator</h1>
     </div>
 
     <nav class="nav app-tabs" role="tablist" aria-label="Seções">
@@ -34,13 +34,19 @@
   </div>
 </header>
 
-<div class="container-lg px-3 py-3 py-md-4">
+<div class="container-lg px-2 px-sm-3 py-2 py-md-4">
   <section
     id="tab-calculator"
     role="tabpanel"
     [class.d-none]="activeTab !== 'calculator'"
   >
-    <div class="row row-cols-1 row-cols-lg-2 g-3 g-lg-4">
+    <!-- Celular/tablet: card único, cabe inteiro em um print -->
+    <div class="d-lg-none">
+      <app-compact-card [planOptions]="planOptions$ | async"></app-compact-card>
+    </div>
+
+    <!-- Desktop: dois cards lado a lado -->
+    <div class="d-none d-lg-flex row row-cols-2 g-4">
       <div class="col">
         <app-card
           [planOptions]="planOptions$ | async"

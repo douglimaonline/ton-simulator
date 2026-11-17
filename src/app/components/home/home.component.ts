@@ -5,11 +5,12 @@ import { FeesFormComponent } from '../fees-form/fees-form.component';
 import { Observable } from 'rxjs';
 import { PlanService } from '../../services/plan.service';
 import { AsyncPipe } from '@angular/common';
+import { CompactCardComponent } from '../compact-card/compact-card.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CardComponent, FeesFormComponent, AsyncPipe],
+  imports: [CardComponent, CompactCardComponent, FeesFormComponent, AsyncPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

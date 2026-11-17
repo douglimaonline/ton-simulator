@@ -1,5 +1,11 @@
 @media (max-width: 767.98px) {
   .app-tabs {
-    width: 100%;
+    flex: 1 1 auto;
+    max-width: 22rem;
+  }
+
+  .app-tabs .nav-link {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.875rem;
   }
 }

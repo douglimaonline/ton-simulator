@@ -1,0 +1,17 @@
+.compact-table {
+  font-size: 0.8125rem;
+}
+
+.compact-table > :not(caption) > * > * {
+  padding: 0.3rem 0.35rem;
+}
+
+.compact-table thead th {
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.compact-legend {
+  font-size: 0.6875rem;
+  line-height: 1.35;
+}
