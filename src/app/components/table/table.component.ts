@@ -13,7 +13,7 @@ registerLocaleData(localePt, 'pt-BR');
 
 /** Modalidades exibidas no resumo (antes de "Ver todas as parcelas"). */
 const SUMMARY_UPFRONT = [0, 1];
-const SUMMARY_INSTALLMENTS = [2, 10, 12, 21];
+const SUMMARY_INSTALLMENTS = [2, 12, 21];
 
 @Component({
   selector: 'app-table',
