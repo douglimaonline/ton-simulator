@@ -1,15 +1,57 @@
-.accordion-button:focus {
-  box-shadow: none;
-}
+/*
+ * Celular/tablet (abaixo de lg, mesmo ponto em que entra o card compacto):
+ * logo maior com as abas logo abaixo, e conteúdo ocupando a altura da tela.
+ * Desktop (lg+) fica como estava.
+ */
+@media (max-width: 991.98px) {
+  :host {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
 
-.accordion-button:not(.collapsed) {
-  box-shadow: none;
-  background-color: transparent;
-  color: var(--bs-card-title-color);
-}
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 0.6rem !important;
+    padding-block: 0.75rem !important;
+  }
 
-@media only screen and (max-width: 600px) {
-  .accordion-item {
-    border: none;
+  .brand {
+    justify-content: center;
+  }
+
+  .app-header img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .brand h1 {
+    font-size: 1.375rem;
+  }
+
+  .app-tabs {
+    width: 100%;
+    max-width: 32rem;
+    margin-inline: auto;
+  }
+
+  .app-tabs .nav-link {
+    padding: 0.55rem 0.5rem;
+    font-size: 0.9375rem;
+  }
+
+  .app-content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tab-panel,
+  .mobile-calc {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
   }
 }

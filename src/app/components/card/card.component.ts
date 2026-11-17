@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { PlanSelectorComponent } from '../plan-selector/plan-selector.component';
 import { TableComponent } from '../table/table.component';
 import { FormsModule } from '@angular/forms';
 import { Plan } from '../../models/plan.model';
@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-card',
   standalone: true,
   imports: [
-    DropdownComponent,
+    PlanSelectorComponent,
     TableComponent,
     FormsModule,
     NgxCurrencyDirective,
@@ -31,6 +31,10 @@ export class CardComponent implements OnInit, OnDestroy, OnChanges {
   interestValue: InterestCalculator = new InterestCalculator();
   private sub!: Subscription;
 
+  get inputId(): string {
+    return this.feesToCostumer ? 'base-value-customer' : 'base-value-own';
+  }
+
   constructor(
     private readonly interestCalculatorService: InterestCalculatorService
   ) {}
@@ -44,7 +48,7 @@ export class CardComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit(): void {
     this.inputSubject
-      .pipe(debounceTime(1000))
+      .pipe(debounceTime(400))
       .subscribe(() => this.updateInterestValue());
 
     this.sub = this.interestCalculatorService.interestCalculator$.subscribe(
@@ -53,6 +57,7 @@ export class CardComponent implements OnInit, OnDestroy, OnChanges {
           ? interestValue.feesToCostumer()
           : interestValue;
         this.selectedPlan = interestValue.selectedPlan;
+        this.baseValue = interestValue.baseValue ?? this.baseValue;
       }
     );
   }

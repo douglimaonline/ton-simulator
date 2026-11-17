@@ -1,34 +1,61 @@
-<div class="accordion m-2" id="accordion">
-  <div class="accordion-item">
-    <h2 class="accordion-header">
+<header class="app-header">
+  <div
+    class="container-lg px-2 px-sm-3 py-2 d-flex align-items-center justify-content-between gap-2 header-inner"
+  >
+    <div class="d-flex align-items-center gap-2 flex-shrink-0 brand">
+      <img src="ton-stone.svg" alt="Ton Simulator" />
+      <h1 class="h5 fw-bold mb-0">Ton Simulator</h1>
+    </div>
+
+    <!-- Desktop: abas ao lado do logo; celular/tablet: abaixo do logo (ver CSS) -->
+    <nav class="nav app-tabs" role="tablist" aria-label="Seções">
       <button
-        (click)="collapseToggle()"
-        class="accordion-button"
         type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#collapseOne"
-        aria-controls="collapseOne"
+        role="tab"
+        class="nav-link"
+        [class.active]="activeTab === 'calculator'"
+        [attr.aria-selected]="activeTab === 'calculator'"
+        aria-controls="tab-calculator"
+        (click)="selectTab('calculator')"
       >
-        <h3>Calculadora</h3>
+        Calculadora
       </button>
-    </h2>
-    <div
-      id="collapseOne"
-      class="{{
-        !collapsed
-          ? 'accordion-collapse collapse show'
-          : 'accordion-collapse collapse'
-      }}"
-      data-bs-parent="#accordion"
-    >
-      <div
-        class="container p-0 d-flex flex-wrap justify-content-center mb-4 gap-5"
-        id="calculator-container"
+      <button
+        type="button"
+        role="tab"
+        class="nav-link"
+        [class.active]="activeTab === 'fees'"
+        [attr.aria-selected]="activeTab === 'fees'"
+        aria-controls="tab-fees"
+        (click)="selectTab('fees')"
       >
+        Atualizar taxas
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="container-lg px-2 px-sm-3 py-2 py-md-4 app-content">
+  <section
+    id="tab-calculator"
+    role="tabpanel"
+    class="tab-panel"
+    [class.d-none]="activeTab !== 'calculator'"
+  >
+    <!-- Celular/tablet: card único, cabe inteiro em um print -->
+    <div class="d-lg-none mobile-calc">
+      <app-compact-card [planOptions]="planOptions$ | async"></app-compact-card>
+    </div>
+
+    <!-- Desktop: dois cards lado a lado -->
+    <div class="d-none d-lg-flex row row-cols-2 g-4">
+      <div class="col">
         <app-card
           [planOptions]="planOptions$ | async"
           id="card-own-fees"
         ></app-card>
+      </div>
+      <div class="col">
         <app-card
           [feesToCostumer]="true"
           [planOptions]="planOptions$ | async"
@@ -36,32 +63,17 @@
         ></app-card>
       </div>
     </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button
-        (click)="collapseToggle()"
-        class="accordion-button"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#collapseTwo"
-        aria-controls="collapseTwo"
-      >
-        <h3>Atualizar Taxas</h3>
-      </button>
-    </h2>
-    <div
-      id="collapseTwo"
-      class="{{
-        collapsed
-          ? 'accordion-collapse collapse show'
-          : 'accordion-collapse collapse'
-      }}"
-      data-bs-parent="#accordion"
-    >
-      <div class="container d-flex justify-content-center mb-4">
+  </section>
+
+  <section
+    id="tab-fees"
+    role="tabpanel"
+    [class.d-none]="activeTab !== 'fees'"
+  >
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8 col-xl-7">
         <app-fees-form [planOptions]="planOptions$ | async"></app-fees-form>
       </div>
     </div>
-  </div>
+  </section>
 </div>

@@ -1,0 +1,20 @@
+<div class="plan-selector">
+  <div class="plan-selector-field">
+    <label class="form-label small text-body-secondary mb-1">Plano</label>
+    <app-dropdown
+      ariaLabel="Plano"
+      [options]="familyOptions"
+      [selected]="family"
+      (selectedChange)="onFamily($event)"
+    ></app-dropdown>
+  </div>
+  <div class="plan-selector-field">
+    <label class="form-label small text-body-secondary mb-1">Faturamento</label>
+    <app-dropdown
+      ariaLabel="Faixa de faturamento"
+      [options]="rangeOptions"
+      [selected]="range"
+      (selectedChange)="onRange($event)"
+    ></app-dropdown>
+  </div>
+</div>

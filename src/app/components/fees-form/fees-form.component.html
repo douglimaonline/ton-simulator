@@ -1,56 +1,62 @@
-<div *ngIf="planOptions && planOptions.length > 0" class="card text-center">
-  <div class="d-flex flex-column card-body gap-2">
-    <div class="row mb-2 gx-0">
-      <div class="col-9">
-        <app-dropdown
+<div *ngIf="planOptions && planOptions.length > 0" class="card app-card shadow-sm">
+  <div class="card-header px-3 py-3">
+    <span class="app-eyebrow">Taxas do plano</span>
+    <p class="small text-body-secondary mb-0 mt-1">
+      Selecione o plano e toque em Editar para alterar as taxas.
+    </p>
+  </div>
+
+  <div class="card-body px-3">
+    <div class="row g-2 align-items-end mb-3">
+      <div class="col-12 col-sm">
+        <app-plan-selector
           [selectedPlan]="selectedPlan"
           [planOptions]="planOptions"
           (planChanged)="planChanged($event)"
-        ></app-dropdown>
+        ></app-plan-selector>
       </div>
-      <div class="col-3">
-        <button type="button" class="btn btn-secondary" (click)="onClick()">
+      <div class="col-12 col-sm-auto d-grid">
+        <button
+          type="button"
+          class="btn px-4"
+          [class.btn-accent]="editMode"
+          [class.btn-outline-secondary]="!editMode"
+          (click)="onClick()"
+        >
           {{ editMode ? "Salvar" : "Editar" }}
         </button>
       </div>
     </div>
 
-    <div class="container text-center border rounded-1 pb-2">
-      <div class="row py-1 mb-1" id="head-row">
-        <div class="col-6 py-1 head-row">Planos</div>
-        <div class="col-6 py-1 head-row">Taxas</div>
-      </div>
-
-      <div
-        *ngFor="let fee of selectedPlan?.fees; let i = index"
-        class="row gx-5"
-      >
-        <div
-          class="col-6 py-1 d-flex align-items-center justify-content-center"
-        >
-          {{ i == 0 ? "Débito" : i == 1 ? "À Vista" : "Parcelado " + i + "x" }}
-        </div>
-        <div class="col-6 py-1 d-flex align-items-center">
-          <input
-            [disabled]="!editMode"
-            inputmode="numeric"
-            pattern="[0-9]*"
-            currencyMask
-            [currencyMask]="{
-              prefix: '',
-              decimal: ',',
-              allowNegative: false,
-              precision: 2,
-              min: 0.0,
-              max: 100.0
-            }"
-            [ngModel]="fee"
-            [ngModelOptions]="{ updateOn: 'blur' }"
-            (ngModelChange)="onInputChange($event, i)"
-            type="text"
-            class="form-control form-control-sm text-center me-2"
-            (click)="selectAll($event)"
-          />%
+    <div class="row row-cols-1 row-cols-sm-2 g-2">
+      <div *ngFor="let fee of selectedPlan?.fees; let i = index" class="col">
+        <div class="fee-item d-flex align-items-center justify-content-between gap-2">
+          <label class="mb-0 text-nowrap" [attr.for]="'fee-' + i">
+            {{ i == 0 ? "Débito" : i == 1 ? "À vista" : "Parcelado " + i + "x" }}
+          </label>
+          <div class="input-group input-group-sm fee-input">
+            <input
+              [id]="'fee-' + i"
+              [disabled]="!editMode"
+              inputmode="decimal"
+              currencyMask
+              [currencyMask]="{
+                prefix: '',
+                decimal: ',',
+                allowNegative: false,
+                precision: 2,
+                min: 0.0,
+                max: 100.0
+              }"
+              [ngModel]="fee"
+              [ngModelOptions]="{ updateOn: 'blur' }"
+              (ngModelChange)="onInputChange($event, i)"
+              type="text"
+              class="form-control text-end tabular"
+              (click)="selectAll($event)"
+            />
+            <span class="input-group-text">%</span>
+          </div>
         </div>
       </div>
     </div>

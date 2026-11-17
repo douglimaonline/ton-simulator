@@ -1,22 +1,24 @@
-<div class="d-flex w-100">
+<div class="dropdown app-dropdown w-100">
   <button
     class="btn btn-secondary dropdown-toggle w-100"
     type="button"
     data-bs-toggle="dropdown"
     aria-expanded="false"
+    [disabled]="disabled"
+    [attr.aria-label]="ariaLabel"
   >
-    {{ selectedPlan?.title }}
+    <span class="text-truncate">{{ selectedLabel }}</span>
   </button>
-  <ul class="dropdown-menu">
-    <li *ngFor="let option of planOptions">
-      <a
+  <ul class="dropdown-menu w-100 shadow">
+    <li *ngFor="let option of options">
+      <button
+        type="button"
         class="dropdown-item"
-        href="#"
-        style="height: 30px"
+        [class.active]="option.value === selected"
         (click)="onSelect(option)"
       >
-        {{ option.title }}</a
-      >
+        {{ option.label }}
+      </button>
     </li>
   </ul>
 </div>

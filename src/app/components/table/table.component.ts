@@ -7,8 +7,13 @@ import {
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { InterestCalculator } from '../../models/InterestCalculator.model';
+import { InstallmentsViewService } from '../../services/installments-view.service';
 
 registerLocaleData(localePt, 'pt-BR');
+
+/** Modalidades exibidas no resumo (antes de "Ver todas as parcelas"). */
+const SUMMARY_UPFRONT = [0, 1];
+const SUMMARY_INSTALLMENTS = [2, 10, 12, 21];
 
 @Component({
   selector: 'app-table',
@@ -24,4 +29,27 @@ registerLocaleData(localePt, 'pt-BR');
 export class TableComponent {
   @Input() feesToCostumer: boolean = false;
   @Input() interestValue!: InterestCalculator;
+
+  constructor(private readonly installmentsView: InstallmentsViewService) {}
+
+  /** Compartilhado entre os cards: expandir um expande todos. */
+  get showAll(): boolean {
+    return this.installmentsView.showAll();
+  }
+
+  get upfrontInterests() {
+    return (this.interestValue?.interests ?? []).filter((i) =>
+      SUMMARY_UPFRONT.includes(i.index)
+    );
+  }
+
+  get summaryInstallments() {
+    return (this.interestValue?.interests ?? []).filter((i) =>
+      SUMMARY_INSTALLMENTS.includes(i.index)
+    );
+  }
+
+  toggleShowAll(): void {
+    this.installmentsView.toggle();
+  }
 }

@@ -1,6 +1,10 @@
 import { NgFor } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Plan } from '../../models/plan.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+export interface DropdownOption<T = unknown> {
+  value: T;
+  label: string;
+}
 
 @Component({
   selector: 'app-dropdown',
@@ -9,18 +13,19 @@ import { Plan } from '../../models/plan.model';
   templateUrl: './dropdown.component.html',
   styleUrl: './dropdown.component.css',
 })
-export class DropdownComponent implements OnInit {
-  @Input() planOptions?: Plan[];
-  @Input() selectedPlan?: Plan;
-  @Output() planChanged = new EventEmitter<Plan>();
+export class DropdownComponent<T = unknown> {
+  @Input() options: DropdownOption<T>[] = [];
+  @Input() selected?: T;
+  @Input() disabled = false;
+  @Input() ariaLabel?: string;
+  @Output() selectedChange = new EventEmitter<T>();
 
-  ngOnInit(): void {
-    this.selectedPlan = this.planOptions?.[0];
-    this.planChanged.emit(this.selectedPlan);
+  get selectedLabel(): string {
+    return this.options.find((o) => o.value === this.selected)?.label ?? '—';
   }
 
-  onSelect(option: Plan) {
-    this.selectedPlan = option;
-    this.planChanged.emit(this.selectedPlan);
+  onSelect(option: DropdownOption<T>): void {
+    this.selected = option.value;
+    this.selectedChange.emit(option.value);
   }
 }

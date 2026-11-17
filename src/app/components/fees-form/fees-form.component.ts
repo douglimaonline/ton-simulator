@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Plan } from '../../models/plan.model';
 import { CommonModule } from '@angular/common';
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { PlanSelectorComponent } from '../plan-selector/plan-selector.component';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../modal/modal.component';
@@ -15,7 +15,7 @@ import { PlanService } from '../../services/plan.service';
   standalone: true,
   imports: [
     CommonModule,
-    DropdownComponent,
+    PlanSelectorComponent,
     NgxCurrencyDirective,
     FormsModule,
     ModalComponent,
@@ -72,6 +72,7 @@ export class FeesFormComponent {
       this.selectedPlan!.id,
       this.selectedPlan!.title,
       this.selectedPlan!.fees.map((fee, i) => this.modelFees[i] ?? fee),
+      this.selectedPlan!,
     );
     this.showModal(this.validateChanges(this.editedPlan));
   }
