@@ -1,9 +1,16 @@
+<ng-container *ngIf="authService.user$ | async as user; else signedOut">
 <div *ngIf="planOptions && planOptions.length > 0" class="card app-card shadow-sm">
-  <div class="card-header px-3 py-3">
-    <span class="app-eyebrow">Taxas do plano</span>
-    <p class="small text-body-secondary mb-0 mt-1">
-      Selecione o plano e toque em Editar para alterar as taxas.
-    </p>
+  <div class="card-header px-3 py-3 d-flex align-items-start justify-content-between gap-2">
+    <div>
+      <span class="app-eyebrow">Taxas do plano</span>
+      <p class="small text-body-secondary mb-0 mt-1">
+        Selecione o plano e toque em Editar para alterar as taxas.
+      </p>
+    </div>
+    <div class="text-end flex-shrink-0 account">
+      <div class="small text-body-secondary text-truncate">{{ user.email }}</div>
+      <button type="button" class="btn btn-link btn-sm p-0" (click)="signOut()">Sair</button>
+    </div>
   </div>
 
   <div class="card-body px-3">
@@ -62,6 +69,28 @@
     </div>
   </div>
 </div>
+</ng-container>
+
+<ng-template #signedOut>
+  <!-- undefined = still restoring the saved session: show nothing to avoid a flash -->
+  <div *ngIf="(authService.user$ | async) === null" class="card app-card shadow-sm">
+    <div class="card-body px-3 py-4 text-center">
+      <span class="app-eyebrow">Acesso restrito</span>
+      <p class="text-body-secondary mt-2 mb-3">
+        Somente as contas autorizadas pela plataforma podem editar as taxas.
+      </p>
+      <button
+        type="button"
+        class="btn btn-accent px-4"
+        [disabled]="signingIn"
+        (click)="signIn()"
+      >
+        {{ signingIn ? "Entrando..." : "Entrar com Google" }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
 <app-modal #modalRef (onConfirm)="handleConfirm()"></app-modal>
 <app-loading #loadingRef></app-loading>
 <app-toast #toastRef></app-toast>

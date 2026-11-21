@@ -49,5 +49,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Service account key used by the plan scripts (firebase-admin)
+.secrets/
+
 # Local snapshots created by the plan scripts
 backups/
