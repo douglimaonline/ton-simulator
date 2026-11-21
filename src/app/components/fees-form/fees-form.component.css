@@ -9,3 +9,8 @@
   width: 7.5rem;
   flex: 0 0 auto;
 }
+
+.account {
+  min-width: 0;
+  max-width: 45%;
+}

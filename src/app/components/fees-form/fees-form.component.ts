@@ -9,6 +9,7 @@ import { Modal } from '../../models/Modal.model';
 import { LoadingComponent } from '../loading/loading.component';
 import { ToastComponent } from '../toast/toast.component';
 import { PlanService } from '../../services/plan.service';
+import { AuthService, UnauthorizedAccountError } from '../../services/auth.service';
 
 @Component({
   selector: 'app-fees-form',
@@ -35,7 +36,37 @@ export class FeesFormComponent {
   modelFees: number[] = Array(18);
   editMode: boolean = false;
 
-  constructor(private planService: PlanService) {}
+  signingIn = false;
+
+  constructor(
+    private planService: PlanService,
+    public authService: AuthService,
+  ) {}
+
+  async signIn(): Promise<void> {
+    this.signingIn = true;
+    try {
+      await this.authService.signIn();
+    } catch (error) {
+      if (error instanceof UnauthorizedAccountError) {
+        this.toast.show(`A conta ${error.email ?? ''} não tem acesso.`, false);
+        return;
+      }
+      // Closing the popup is not an error worth showing
+      const code = (error as { code?: string })?.code;
+      if (code !== 'auth/popup-closed-by-user' && code !== 'auth/cancelled-popup-request') {
+        console.error(error);
+        this.toast.show('Não foi possível entrar com o Google.', false);
+      }
+    } finally {
+      this.signingIn = false;
+    }
+  }
+
+  async signOut(): Promise<void> {
+    this.resetForm();
+    await this.authService.signOut();
+  }
 
   async handleConfirm(): Promise<void> {
     await this.showLoading();
@@ -45,6 +76,7 @@ export class FeesFormComponent {
       this.handleEditPlan(result);
     } catch (error) {
       console.error(error);
+      this.hideLoading();
     }
   }
 
@@ -102,13 +134,19 @@ export class FeesFormComponent {
     success: boolean;
     plan?: string | undefined;
     message: string;
+    permissionDenied?: boolean;
   }): void {
     if (result.success) {
       this.resetForm();
       this.toast.show('Taxas atualizadas.', result.success);
       this.navigateToCalculator();
     } else {
-      this.toast.show('Erro ao atualizar taxas.', result.success);
+      this.toast.show(
+        result.permissionDenied
+          ? 'Esta conta não tem permissão para editar as taxas.'
+          : 'Erro ao atualizar taxas.',
+        result.success,
+      );
       this.hideLoading();
     }
   }

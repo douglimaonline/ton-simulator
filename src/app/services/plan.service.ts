@@ -19,7 +19,12 @@ export class PlanService {
 
   async editPlan(
     plan: Plan,
-  ): Promise<{ success: boolean; plan?: string; message: string }> {
+  ): Promise<{
+    success: boolean;
+    plan?: string;
+    message: string;
+    permissionDenied?: boolean;
+  }> {
     const planRef = doc(db, PLANS_COLLECTION, plan.id.toString());
 
     try {
@@ -40,6 +45,8 @@ export class PlanService {
       return {
         success: false,
         message: 'Failed to update Plan',
+        // Firestore rules reject writes from accounts that are not editors
+        permissionDenied: (error as { code?: string })?.code === 'permission-denied',
       };
     }
   }
