@@ -10,11 +10,6 @@ import { DropdownComponent, DropdownOption } from '../dropdown/dropdown.componen
 import { Plan } from '../../models/plan.model';
 import { PlanCatalog } from '../../models/plan-catalog';
 
-/** Labels shown for the database `settlement` values. */
-const SETTLEMENT_LABELS: Record<string, string> = {
-  'Mesmo dia': 'Na hora',
-};
-
 /**
  * Plan selection with three dropdowns: plan (`family`), billing range
  * (`range`) and settlement (`settlement`). Each one only offers options that
@@ -96,6 +91,6 @@ export class PlanSelectorComponent implements OnChanges {
     this.settlementOptions = this.catalog
       .settlements(plan.family, plan.range)
       .filter((s): s is string => s !== null)
-      .map((s) => ({ value: s, label: SETTLEMENT_LABELS[s] ?? s }));
+      .map((s) => ({ value: s, label: s }));
   }
 }

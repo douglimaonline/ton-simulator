@@ -93,7 +93,13 @@ console.log(
   `create: ${count('create')} | update: ${count('update')} | delete: ${count('delete')} | unchanged: ${unchanged}`
 );
 for (const o of ops)
-  console.log(`  ${o.type.padEnd(9)} ${o.id}${o.data ? `  ${o.data.title}` : ''}`);
+  console.log(
+    `  ${o.type.padEnd(9)} ${o.id}${
+      o.data
+        ? `  ${[o.data.family, o.data.range, o.data.settlement].filter(Boolean).join(' · ')}`
+        : ''
+    }`
+  );
 
 if (DRY_RUN || ops.length === 0) {
   console.log(ops.length === 0 ? 'Target is already up to date.' : 'Nothing written (dry-run).');

@@ -2,9 +2,13 @@
 <div *ngIf="planOptions && planOptions.length > 0" class="card app-card shadow-sm">
   <div class="card-header px-3 py-3 d-flex align-items-start justify-content-between gap-2">
     <div>
-      <span class="app-eyebrow">Taxas do plano</span>
+      <span class="app-eyebrow">{{ mode === "create" ? "Novo plano" : "Taxas do plano" }}</span>
       <p class="small text-body-secondary mb-0 mt-1">
-        Selecione o plano e toque em Editar para alterar as taxas.
+        {{
+          mode === "create"
+            ? "Preencha os dados do plano e ajuste as taxas."
+            : "Selecione o plano e toque em Editar para alterar as taxas."
+        }}
       </p>
     </div>
     <div class="text-end flex-shrink-0 account">
@@ -14,29 +18,95 @@
   </div>
 
   <div class="card-body px-3">
-    <div class="row g-2 align-items-end mb-3">
-      <div class="col-12 col-sm">
+    <ng-container *ngIf="mode !== 'create'; else newPlanFields">
+      <div class="mb-2">
         <app-plan-selector
           [selectedPlan]="selectedPlan"
           [planOptions]="planOptions"
           (planChanged)="planChanged($event)"
         ></app-plan-selector>
       </div>
-      <div class="col-12 col-sm-auto d-grid">
+
+      <div class="d-flex flex-wrap gap-2 mb-3">
         <button
           type="button"
           class="btn px-4"
-          [class.btn-accent]="editMode"
-          [class.btn-outline-secondary]="!editMode"
-          (click)="onClick()"
+          [class.btn-accent]="mode === 'edit'"
+          [class.btn-outline-secondary]="mode !== 'edit'"
+          (click)="onEditClick()"
         >
-          {{ editMode ? "Salvar" : "Editar" }}
+          {{ mode === "edit" ? "Salvar" : "Editar" }}
+        </button>
+        <ng-container *ngIf="mode === 'edit'; else viewActions">
+          <button type="button" class="btn btn-outline-secondary" (click)="cancel()">
+            Cancelar
+          </button>
+        </ng-container>
+        <ng-template #viewActions>
+          <button type="button" class="btn btn-outline-danger" (click)="onDeleteClick()">
+            Excluir plano
+          </button>
+          <button type="button" class="btn btn-outline-secondary ms-sm-auto" (click)="startCreate()">
+            + Novo plano
+          </button>
+        </ng-template>
+      </div>
+    </ng-container>
+
+    <ng-template #newPlanFields>
+      <div class="row g-2 mb-2">
+        <div class="col-12 col-sm-4">
+          <label class="form-label small text-body-secondary mb-1" for="new-family">Plano</label>
+          <input
+            id="new-family"
+            class="form-control"
+            list="new-family-options"
+            autocomplete="off"
+            placeholder="Ex.: Ton Top"
+            [(ngModel)]="draft.family"
+          />
+          <datalist id="new-family-options">
+            <option *ngFor="let family of familySuggestions" [value]="family"></option>
+          </datalist>
+        </div>
+        <div class="col-12 col-sm-4">
+          <label class="form-label small text-body-secondary mb-1" for="new-range">Faturamento</label>
+          <input
+            id="new-range"
+            class="form-control"
+            list="new-range-options"
+            autocomplete="off"
+            placeholder="Ex.: Até 6k"
+            [(ngModel)]="draft.range"
+          />
+          <datalist id="new-range-options">
+            <option *ngFor="let range of rangeSuggestions" [value]="range"></option>
+          </datalist>
+        </div>
+        <div class="col-12 col-sm-4">
+          <label class="form-label small text-body-secondary mb-1" for="new-settlement">Recebimento</label>
+          <select id="new-settlement" class="form-select" [(ngModel)]="draft.settlement">
+            <option *ngFor="let settlement of settlementOptions" [ngValue]="settlement">
+              {{ settlement }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <p class="small text-body-secondary mb-2">
+        Taxas copiadas de "{{ selectedPlan?.label }}".
+      </p>
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        <button type="button" class="btn btn-accent px-4" (click)="onCreateClick()">
+          Criar plano
+        </button>
+        <button type="button" class="btn btn-outline-secondary" (click)="cancel()">
+          Cancelar
         </button>
       </div>
-    </div>
+    </ng-template>
 
     <div class="row row-cols-1 row-cols-sm-2 g-2">
-      <div *ngFor="let fee of selectedPlan?.fees; let i = index" class="col">
+      <div *ngFor="let fee of selectedPlan?.fees; let i = index; trackBy: trackFee" class="col">
         <div class="fee-item d-flex align-items-center justify-content-between gap-2">
           <label class="mb-0 text-nowrap" [attr.for]="'fee-' + i">
             {{ i == 0 ? "Débito" : i == 1 ? "À vista" : "Parcelado " + i + "x" }}
@@ -44,7 +114,7 @@
           <div class="input-group input-group-sm fee-input">
             <input
               [id]="'fee-' + i"
-              [disabled]="!editMode"
+              [disabled]="!editing"
               inputmode="decimal"
               currencyMask
               [currencyMask]="{
